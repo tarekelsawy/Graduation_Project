@@ -1,0 +1,37 @@
+{
+    "setting":"الإعدادات",
+    "dark":"داكن",
+    "language":"اللغة",
+    "en":"إنجليزي",
+    "ar":"عربي",
+    "editProfile":"تعديل الحساب الشخصي",
+    "enterYourName":"اسم المستخدم",
+    
+    "enterYourEmail":"البريد الالكتروني",
+    
+    "enterYourPhone":"رقم الهاتف",
+    
+    "enterYourBirthDate":"يوم الميلاد",
+    
+    "enterYourState":"اسم الدوله",
+    
+    "updateProfile":"تعديل",
+
+    "countrySearch":"بحث عن دولة",
+    
+    "typeCountrySearch":"ابدأ في الكتابة للبحث",
+   
+    "homePage":"الصفحة الرئيسية",
+
+    "questions":"الأسئلة",
+
+    "imageProcessing":"تحليل الصورة",
+
+    "result":"النتائج",
+    
+    "help":"المساعدة",
+    
+    "logout":"تسجيل الخروج"
+
+
+}

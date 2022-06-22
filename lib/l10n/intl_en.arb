@@ -1,0 +1,126 @@
+{
+  
+    "setting":"Settings",
+    "@setting": {
+        "description": "Corona app setting"
+      },
+    "dark":"Dark",
+    "@dark": {
+        "description": "Corona app mode"
+      },
+    "language":"Language",
+    "@language": {
+        "description": "Corona app language"
+      },
+    "en":"English",
+    "@en": {
+        "description": "Corona app en"
+      },
+    "ar":"Arabic",
+    "@ar": {
+        "description": "Corona app ar"
+      },
+
+
+      "editProfile":"Edit Profile",
+    "@editProfile": {
+        "description": "Corona app editProfile"
+      },
+    "enterYourName":"Enter Your Name",
+    "@enterYourName": {
+        "description": "Corona app enterYourName"
+      },
+    "enterYourEmail":"Enter Your Email",
+    "@enterYourEmail": {
+        "description": "Corona app enterYourEmail"
+      },
+    "enterYourPhone":"Enter Your Phone",
+    "@enterYourPhone": {
+        "description": "Corona app enterYourPhone"
+      },
+    "enterYourBirthDate":"Enter Your BirthDate",
+    "@enterYourBirthDate": {
+        "description": "Corona app enterYourBirthDate"
+      },
+    "enterYourState":"Enter Your State",
+    "@enterYourState": {
+        "description": "Corona app enterYourState"
+      },
+    "updateProfile":"Update Profile",
+    "@updateProfile": {
+        "description": "Corona app updateProfile"
+      },
+
+    "countrySearch":"Country Search",
+    "@countrySearch": {
+        "description": "Corona app countrySearch"
+      },
+    "typeCountrySearch":"Start typing to search",
+    "@typeCountrySearch": {
+        "description": "Corona app typeCountrySearch"
+      },
+    "homePage":"Home",
+    "@homePage": {
+        "description": "Corona app homePage"
+      },
+    "questions":"Questions",
+    "@questions": {
+        "description": "Corona app questions"
+      },
+    "imageProcessing":"Image Processing",
+    "@imageProcessing": {
+        "description": "Corona app imageProcessing"
+      },
+    "result":"Result",
+    "@result": {
+        "description": "Corona app result"
+      },
+    "help":"Help",
+    "@help": {
+        "description": "Corona app help"
+      },
+    "logout":"Logout",
+    "@logout": {
+        "description": "Corona app logout"
+      },
+    "q1":"Scale body temprature (fever)",
+    "@q1": {
+        "description": "Corona app fever"
+      },
+    "q2":"Is there any Cough?",
+    "@q2": {
+        "description": "Corona app Cough"
+      },
+    "q3":"physical fatigue (tiredness)",
+    "@q3": {
+        "description": "Corona app tiredness"
+      },
+    "q4":"Loss of Smell and Taste",
+    "@q4": {
+        "description": "Corona app Taste"
+      },
+    "q5":"Difficulity or shortness of breathe",
+    "@q5": {
+        "description": "Corona app breathe"
+      },
+    "q6":"aches and pains (headache)",
+    "@q6": {
+        "description": "Corona app headache"
+      },
+    "q7":"Runny Nose",
+    "@q7": {
+        "description": "Corona app Runny Nose"
+      },
+    "q8":"Chest Pain",
+    "@q8": {
+        "description": "Corona app Chest Pain"
+      }
+
+     
+      
+    
+    
+
+    
+
+}
