@@ -1,3 +1,4 @@
+import 'package:corona_test_project/generated/l10n.dart';
 import 'package:corona_test_project/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class DetailsOption extends StatelessWidget {
           height: 20,
         ),
         Text(
-          'Details',
+          S.of(context).details,
           style: Theme.of(context).textTheme.bodyText1!.copyWith(
                 color: isDark ? colorYellow : colorWhite,
                 fontSize: 20,

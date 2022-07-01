@@ -34,67 +34,6 @@ class QuestionModel {
 }
 
 class QuestionTestScreen extends StatelessWidget {
-  List<QuestionModel> questionsList = [
-    QuestionModel(
-        question: 'Scale body temprature (fever)?',
-        max: 42,
-        min: 37,
-        initValue: 37,
-        postFixText: 'High',
-        prefixText: 'Normal'),
-    //prefix ->normal ---post high
-    QuestionModel(
-        question: 'Is there any Cough?',
-        max: 1,
-        min: 0,
-        initValue: 0,
-        postFixText: 'No',
-        prefixText: 'Yes'),
-    //display the sumb in center
-    QuestionModel(
-        question: 'physical fatigue (tiredness)',
-        max: 5,
-        min: 0,
-        initValue: 0,
-        postFixText: 'whole body',
-        prefixText: 'None Tired'),
-    QuestionModel(
-        question: 'Loss of Smell and Taste',
-        max: 5,
-        min: 0,
-        initValue: 0,
-        postFixText: 'HIGH',
-        prefixText: 'LOW'),
-    QuestionModel(
-        question: 'Difficulity or shortness of breathe',
-        max: 5,
-        min: 0,
-        initValue: 0,
-        postFixText: 'Hard',
-        prefixText: 'Easy'),
-    QuestionModel(
-        question: 'aches and pains (headache)',
-        max: 5,
-        min: 0,
-        initValue: 0,
-        postFixText: 'Painful',
-        prefixText: 'No Pain'),
-    QuestionModel(
-        question: 'Runny Nose',
-        max: 5,
-        min: 0,
-        initValue: 0,
-        postFixText: 'Runny',
-        prefixText: 'No'),
-    QuestionModel(
-        question: 'Chest Pain',
-        max: 5,
-        min: 0,
-        initValue: 0,
-        postFixText: 'Painful',
-        prefixText: 'No Pain'),
-  ];
-
   PageController questionController = PageController(
     initialPage: 0,
   );
@@ -102,6 +41,73 @@ class QuestionTestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isLastPage = false;
+    List<QuestionModel> questionsList = [
+      QuestionModel(
+          question: S.of(context).q1,
+          max: 42,
+          min: 37,
+          initValue: 37,
+          postFixText: S.of(context).high,
+          prefixText: S.of(context).normal),
+      //prefix ->normal ---post high
+      QuestionModel(
+        question: S.of(context).q2,
+        max: 1,
+        min: 0,
+        initValue: 0,
+        postFixText: S.of(context).no,
+        prefixText: S.of(context).yes,
+      ),
+      //display the sumb in center
+      QuestionModel(
+        question: S.of(context).q3,
+        max: 5,
+        min: 0,
+        initValue: 0,
+        postFixText: S.of(context).wholeBody,
+        prefixText: S.of(context).noneTired,
+      ),
+      QuestionModel(
+        question: S.of(context).q4,
+        max: 5,
+        min: 0,
+        initValue: 0,
+        postFixText: S.of(context).high,
+        prefixText: S.of(context).low,
+      ),
+      QuestionModel(
+        question: S.of(context).q5,
+        max: 5,
+        min: 0,
+        initValue: 0,
+        postFixText: S.of(context).hard,
+        prefixText: S.of(context).easy,
+      ),
+      QuestionModel(
+        question: S.of(context).q6,
+        max: 5,
+        min: 0,
+        initValue: 0,
+        postFixText: S.of(context).paintful,
+        prefixText: S.of(context).nopain,
+      ),
+      QuestionModel(
+        question: S.of(context).q7,
+        max: 5,
+        min: 0,
+        initValue: 0,
+        postFixText: S.of(context).runny,
+        prefixText: S.of(context).no,
+      ),
+      QuestionModel(
+        question: S.of(context).q8,
+        max: 5,
+        min: 0,
+        initValue: 0,
+        postFixText: S.of(context).paintful,
+        prefixText: S.of(context).nopain,
+      ),
+    ];
     return BlocConsumer<CoronaCubit, CoronaStates>(
       listener: (context, state) {},
       builder: (context, state) {

@@ -1,3 +1,4 @@
+import 'package:corona_test_project/generated/l10n.dart';
 import 'package:corona_test_project/modules/done_folder/done_screen.dart';
 import 'package:corona_test_project/modules/result_screen/corona_result_screen.dart';
 import 'package:corona_test_project/shared/components/components.dart';
@@ -86,7 +87,7 @@ class FinalDoneScreen extends StatelessWidget {
                         navigateTo(context: context, widget: ResultScreen());
                       },
                       child: Text(
-                        'Result',
+                        S.of(context).result,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               color: isDark ? colorYellow : colorWhite,

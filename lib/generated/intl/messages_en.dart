@@ -23,8 +23,11 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "ar": MessageLookupByLibrary.simpleMessage("Arabic"),
+        "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "countrySearch": MessageLookupByLibrary.simpleMessage("Country Search"),
         "dark": MessageLookupByLibrary.simpleMessage("Dark"),
+        "details": MessageLookupByLibrary.simpleMessage("Details"),
+        "easy": MessageLookupByLibrary.simpleMessage("Easy"),
         "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "en": MessageLookupByLibrary.simpleMessage("English"),
         "enterYourBirthDate":
@@ -37,12 +40,23 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter Your Phone"),
         "enterYourState":
             MessageLookupByLibrary.simpleMessage("Enter Your State"),
+        "gallary": MessageLookupByLibrary.simpleMessage("Gallary"),
+        "hard": MessageLookupByLibrary.simpleMessage("Hard"),
         "help": MessageLookupByLibrary.simpleMessage("Help"),
+        "high": MessageLookupByLibrary.simpleMessage("High"),
         "homePage": MessageLookupByLibrary.simpleMessage("Home"),
+        "image": MessageLookupByLibrary.simpleMessage("Choose MRI Image"),
+        "imagePreview": MessageLookupByLibrary.simpleMessage("Image Preview"),
         "imageProcessing":
             MessageLookupByLibrary.simpleMessage("Image Processing"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "low": MessageLookupByLibrary.simpleMessage("LOW"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
+        "noneTired": MessageLookupByLibrary.simpleMessage("None Tired"),
+        "nopain": MessageLookupByLibrary.simpleMessage("No Pain"),
+        "normal": MessageLookupByLibrary.simpleMessage("Normal"),
+        "paintful": MessageLookupByLibrary.simpleMessage("Painful"),
         "q1": MessageLookupByLibrary.simpleMessage(
             "Scale body temprature (fever)"),
         "q2": MessageLookupByLibrary.simpleMessage("Is there any Cough?"),
@@ -57,9 +71,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "q8": MessageLookupByLibrary.simpleMessage("Chest Pain"),
         "questions": MessageLookupByLibrary.simpleMessage("Questions"),
         "result": MessageLookupByLibrary.simpleMessage("Result"),
+        "runny": MessageLookupByLibrary.simpleMessage("Runny"),
+        "seeADoc":
+            MessageLookupByLibrary.simpleMessage("You should see a doctor"),
         "setting": MessageLookupByLibrary.simpleMessage("Settings"),
+        "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "typeCountrySearch":
             MessageLookupByLibrary.simpleMessage("Start typing to search"),
-        "updateProfile": MessageLookupByLibrary.simpleMessage("Update Profile")
+        "updateProfile": MessageLookupByLibrary.simpleMessage("Update Profile"),
+        "wholeBody": MessageLookupByLibrary.simpleMessage("Whole Body"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

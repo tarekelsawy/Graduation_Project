@@ -1,7 +1,9 @@
+import 'package:corona_test_project/modules/corona_test_screens/questions_screen.dart';
 import 'package:corona_test_project/modules/done_folder/final_done_Screen.dart';
 import 'package:corona_test_project/shared/components/components.dart';
 import 'package:corona_test_project/shared/components/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:corona_test_project/generated/l10n.dart';
 
 class DetailsScreen extends StatelessWidget {
   @override
@@ -11,7 +13,7 @@ class DetailsScreen extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Text(
-            'Details',
+            S.of(context).details,
             style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   color: isDark ? colorYellow : colorWhite,
                   fontSize: 27,
@@ -32,11 +34,13 @@ class DetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("1 Provide, operate, and maintain our website",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              color: isDark ? colorYellow : colorWhite,
-                              height: 2.5,
-                            )),
+                    Text(
+                      "1 Provide, operate, and maintain our website",
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            color: isDark ? colorYellow : colorWhite,
+                            height: 2.5,
+                          ),
+                    ),
                     Text(
                       "2 Provide, operate, and maintain our website",
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -44,21 +48,13 @@ class DetailsScreen extends StatelessWidget {
                             height: 2.5,
                           ),
                     ),
-                    Text("3 Provide, operate, and maintain our website",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              color: isDark ? colorYellow : colorWhite,
-                              height: 2.5,
-                            )),
-                    Text("2 Provide, operate, and maintain our website",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              color: isDark ? colorYellow : colorWhite,
-                              height: 2.5,
-                            )),
-                    Text("3 Provide, operate, and maintain our website",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              color: isDark ? colorYellow : colorWhite,
-                              height: 2.5,
-                            )),
+                    Text(
+                      "3 Provide, operate, and maintain our website",
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            color: isDark ? colorYellow : colorWhite,
+                            height: 2.5,
+                          ),
+                    ),
                     Text(
                       "2 Provide, operate, and maintain our website",
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -66,11 +62,13 @@ class DetailsScreen extends StatelessWidget {
                             height: 2.5,
                           ),
                     ),
-                    Text("3 Provide, operate, and maintain our website",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              color: isDark ? colorYellow : colorWhite,
-                              height: 2.5,
-                            )),
+                    Text(
+                      "3 Provide, operate, and maintain our website",
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            color: isDark ? colorYellow : colorWhite,
+                            height: 2.5,
+                          ),
+                    ),
                     Text(
                       "2 Provide, operate, and maintain our website",
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -78,11 +76,27 @@ class DetailsScreen extends StatelessWidget {
                             height: 2.5,
                           ),
                     ),
-                    Text("3 Provide, operate, and maintain our website",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              color: isDark ? colorYellow : colorWhite,
-                              height: 2.5,
-                            )),
+                    Text(
+                      "3 Provide, operate, and maintain our website",
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            color: isDark ? colorYellow : colorWhite,
+                            height: 2.5,
+                          ),
+                    ),
+                    Text(
+                      "2 Provide, operate, and maintain our website",
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            color: isDark ? colorYellow : colorWhite,
+                            height: 2.5,
+                          ),
+                    ),
+                    Text(
+                      "3 Provide, operate, and maintain our website",
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            color: isDark ? colorYellow : colorWhite,
+                            height: 2.5,
+                          ),
+                    ),
                   ],
                 ),
               ),
@@ -106,8 +120,9 @@ class DetailsScreen extends StatelessWidget {
                   },
                   child: Center(
                     child: Icon(
-                      Icons.arrow_back_ios_new_outlined,
+                      Icons.arrow_back,
                       color: isDark ? colorBlack : colorPurple,
+                      size: 35,
                     ),
                   ),
                   backgroundColor: isDark ? colorYellow : colorWhite,

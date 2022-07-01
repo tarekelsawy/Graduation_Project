@@ -1,5 +1,6 @@
 import 'package:corona_test_project/shared/components/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:corona_test_project/generated/l10n.dart';
 
 class ResultOption extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class ResultOption extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: [
         Text(
-          'Result',
+          S.of(context).result,
           style: Theme.of(context).textTheme.bodyText1!.copyWith(
                 fontSize: 27.0,
                 fontWeight: FontWeight.bold,

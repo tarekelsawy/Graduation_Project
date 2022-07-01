@@ -50,8 +50,7 @@ class _ResultScreenState extends State<ResultScreen> {
                   child: CustomPaint(
                     painter: CurvePainter(login),
                     child: Container(
-                      // color: (isDark ? colorYellow : colorWhite),
-                      color: Colors.red,
+                      color: isDark ? colorYellow : colorWhite,
                       padding: EdgeInsets.only(bottom: login ? 0 : 55),
                       child: Center(
                         child: SingleChildScrollView(
@@ -86,7 +85,7 @@ class _ResultScreenState extends State<ResultScreen> {
                       ? MediaQuery.of(context).size.height * 0.4
                       : MediaQuery.of(context).size.height * 0.6,
                   child: Container(
-                    // color: Colors.transparent,
+                    color: Colors.transparent,
                     child: !login ? DetailsScreen() : DetailsOption(),
                   ),
                 ),

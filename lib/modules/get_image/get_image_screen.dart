@@ -1,3 +1,4 @@
+import 'package:corona_test_project/generated/l10n.dart';
 import 'package:corona_test_project/modules/corona_test_screens/questions_screen.dart';
 import 'package:corona_test_project/modules/done_folder/done_screen.dart';
 import 'package:corona_test_project/modules/done_folder/final_done_Screen.dart';
@@ -71,7 +72,7 @@ class GetImageScreen extends StatelessWidget {
                                                   size: 100,
                                                 ),
                                                 Text(
-                                                  'Image Preview',
+                                                  S.of(context).imagePreview,
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .bodyText1!
@@ -109,7 +110,7 @@ class GetImageScreen extends StatelessWidget {
                                 children: [
                                   buttonInImageScreen(
                                     context: context,
-                                    text: 'Gallary',
+                                    text: S.of(context).gallary,
                                     icon: Icons.photo_library_outlined,
                                     onPressed: () => cubit.getImage(
                                       source: ImageSource.gallery,
@@ -120,7 +121,7 @@ class GetImageScreen extends StatelessWidget {
                                   ),
                                   buttonInImageScreen(
                                     context: context,
-                                    text: 'Camera',
+                                    text: S.of(context).camera,
                                     icon: Icons.photo_camera_outlined,
                                     onPressed: () => cubit.getImage(
                                       source: ImageSource.camera,
@@ -152,8 +153,9 @@ class GetImageScreen extends StatelessWidget {
                                   },
                                   child: Center(
                                     child: Icon(
-                                      Icons.arrow_back_ios_new_outlined,
+                                      Icons.arrow_back,
                                       color: isDark ? colorBlack : colorPurple,
+                                      size: 35.0,
                                     ),
                                   ),
                                   backgroundColor:
@@ -175,6 +177,7 @@ class GetImageScreen extends StatelessWidget {
                                     child: Icon(
                                       Icons.done,
                                       color: isDark ? colorBlack : colorPurple,
+                                      size: 35.0,
                                     ),
                                   ),
                                   backgroundColor: isDark

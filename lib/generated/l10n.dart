@@ -329,6 +329,196 @@ class S {
       args: [],
     );
   }
+
+  /// `High`
+  String get high {
+    return Intl.message(
+      'High',
+      name: 'high',
+      desc: 'Corona app high',
+      args: [],
+    );
+  }
+
+  /// `Normal`
+  String get normal {
+    return Intl.message(
+      'Normal',
+      name: 'normal',
+      desc: 'Corona app normal',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: 'Corona app no',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: 'Corona app yes',
+      args: [],
+    );
+  }
+
+  /// `Whole Body`
+  String get wholeBody {
+    return Intl.message(
+      'Whole Body',
+      name: 'wholeBody',
+      desc: 'Corona app wholeBody',
+      args: [],
+    );
+  }
+
+  /// `None Tired`
+  String get noneTired {
+    return Intl.message(
+      'None Tired',
+      name: 'noneTired',
+      desc: 'Corona app noneTired',
+      args: [],
+    );
+  }
+
+  /// `LOW`
+  String get low {
+    return Intl.message(
+      'LOW',
+      name: 'low',
+      desc: 'Low',
+      args: [],
+    );
+  }
+
+  /// `Hard`
+  String get hard {
+    return Intl.message(
+      'Hard',
+      name: 'hard',
+      desc: 'Hard',
+      args: [],
+    );
+  }
+
+  /// `Easy`
+  String get easy {
+    return Intl.message(
+      'Easy',
+      name: 'easy',
+      desc: 'Easy',
+      args: [],
+    );
+  }
+
+  /// `Painful`
+  String get paintful {
+    return Intl.message(
+      'Painful',
+      name: 'paintful',
+      desc: 'paintful',
+      args: [],
+    );
+  }
+
+  /// `No Pain`
+  String get nopain {
+    return Intl.message(
+      'No Pain',
+      name: 'nopain',
+      desc: 'No Pain',
+      args: [],
+    );
+  }
+
+  /// `Runny`
+  String get runny {
+    return Intl.message(
+      'Runny',
+      name: 'runny',
+      desc: 'Runny',
+      args: [],
+    );
+  }
+
+  /// `Choose MRI Image`
+  String get image {
+    return Intl.message(
+      'Choose MRI Image',
+      name: 'image',
+      desc: 'Choose MRI Image',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get skip {
+    return Intl.message(
+      'Skip',
+      name: 'skip',
+      desc: 'Skip',
+      args: [],
+    );
+  }
+
+  /// `Image Preview`
+  String get imagePreview {
+    return Intl.message(
+      'Image Preview',
+      name: 'imagePreview',
+      desc: 'Image Preview',
+      args: [],
+    );
+  }
+
+  /// `Gallary`
+  String get gallary {
+    return Intl.message(
+      'Gallary',
+      name: 'gallary',
+      desc: 'Gallary',
+      args: [],
+    );
+  }
+
+  /// `Camera`
+  String get camera {
+    return Intl.message(
+      'Camera',
+      name: 'camera',
+      desc: 'Camera',
+      args: [],
+    );
+  }
+
+  /// `Details`
+  String get details {
+    return Intl.message(
+      'Details',
+      name: 'details',
+      desc: 'Details',
+      args: [],
+    );
+  }
+
+  /// `You should see a doctor`
+  String get seeADoc {
+    return Intl.message(
+      'You should see a doctor',
+      name: 'seeADoc',
+      desc: 'You should see a doctor',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

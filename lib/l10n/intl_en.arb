@@ -114,6 +114,83 @@
     "q8":"Chest Pain",
     "@q8": {
         "description": "Corona app Chest Pain"
+      },
+    "high":"High",
+    "@high": {
+        "description": "Corona app high"
+      },
+    "normal":"Normal",
+    "@normal": {
+        "description": "Corona app normal"
+      },
+    
+    "no":"No",
+    "@no": {
+        "description": "Corona app no"
+      },
+    "yes":"Yes",
+    "@yes": {
+        "description": "Corona app yes"
+      },
+    "wholeBody":"Whole Body",
+    "@wholeBody": {
+        "description": "Corona app wholeBody"
+      },
+    "noneTired":"None Tired",
+    "@noneTired": {
+        "description": "Corona app noneTired"
+      },
+      "low":"LOW",
+    "@low": {
+        "description": "Low"
+      },
+    "hard":"Hard",
+    "@hard": {
+        "description": "Hard"
+      },
+    "easy":"Easy",
+    "@easy": {
+        "description": "Easy"
+      },
+    "paintful":"Painful",
+    "@paintful": {
+        "description": "paintful"
+      },
+    "nopain":"No Pain",
+    "@nopain": {
+        "description": "No Pain"
+      },
+    "runny":"Runny",
+    "@runny": {
+        "description": "Runny"
+      },
+    "image":"Choose MRI Image",
+    "@image": {
+        "description": "Choose MRI Image"
+      },
+    "skip":"Skip",
+    "@skip": {
+        "description": "Skip"
+      },
+    "imagePreview":"Image Preview",
+    "@imagePreview": {
+        "description": "Image Preview"
+      },
+    "gallary":"Gallary",
+    "@gallary": {
+        "description": "Gallary"
+      },
+    "camera":"Camera",
+    "@camera": {
+        "description": "Camera"
+      },
+    "details":"Details",
+    "@details": {
+        "description": "Details"
+      },
+    "seeADoc":"You should see a doctor",
+    "@seeADoc": {
+        "description": "You should see a doctor"
       }
 
      

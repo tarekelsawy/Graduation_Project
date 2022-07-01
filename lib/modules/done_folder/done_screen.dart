@@ -1,3 +1,4 @@
+import 'package:corona_test_project/generated/l10n.dart';
 import 'package:corona_test_project/modules/done_folder/final_done_Screen.dart';
 import 'package:corona_test_project/modules/get_image/get_image_screen.dart';
 import 'package:corona_test_project/modules/sidebar_screen/sidebar_screen.dart';
@@ -99,11 +100,11 @@ class DoneScreen extends StatelessWidget {
                         navigateTo(context: context, widget: GetImageScreen());
                       },
                       child: Text(
-                        'Choose MRI Image',
+                        S.of(context).image,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               color: isDark ? colorYellow : colorWhite,
-                              fontSize: 22.0,
+                              fontSize: currentLanguage == 'en' ? 22.0 : 16.0,
                               fontWeight: FontWeight.bold,
                             ),
                       ),
@@ -159,7 +160,7 @@ class DoneScreen extends StatelessWidget {
                         );
                       },
                       child: Text(
-                        'Skip',
+                        S.of(context).skip,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               color: isDark ? colorYellow : colorWhite,
