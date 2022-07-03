@@ -66,3 +66,10 @@ class CoronaChangeAppModeState extends CoronaStates {}
 // change value of drop Down Button
 
 class CoronaChangeDropDownButtonValueState extends CoronaStates {}
+
+// upload image to server
+class CoronaUploadImageToServerLoadingState extends CoronaStates {}
+
+class CoronaUploadImageToServerSuccessState extends CoronaStates {}
+
+class CoronaUploadImageToServerErrorState extends CoronaStates {}

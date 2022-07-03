@@ -324,29 +324,16 @@ Widget pageItem(
                       valueIndicatorColor: CoronaCubit.sliderValue <= 0
                           ? Color(0xFF1C1C1C)
                           : Colors.red, // This is what you are asking for
-                      // inactiveTrackColor:
-                      //     Color(0xFF1C1C1C),
-                      // // Custom Gray Color
-                      // activeTrackColor:
-                      //     CoronaCubit.sliderValue <= CoronaCubit.sliderValue / 2
-                      //         ? Color(0xFF1C1C1C)
-                      //         : Colors.red,
+
                       thumbColor: CoronaCubit.sliderValue <= 0
                           ? colorBlack
                           : Colors.red,
                       overlayColor: CoronaCubit.sliderValue <= 0
                           ? colorBlack
-                          : Colors.red, // Custom Thumb overlay Color
-                      // thumbShape:
-                      //     RoundSliderThumbShape(enabledThumbRadius: 12.0),
-                      // overlayShape:
-                      //     RoundSliderOverlayShape(overlayRadius: 15.0),
+                          : Colors.red,
                     ),
                     child: Slider(
                       value: (model.min + model.max) / 2,
-                      // value: CoronaCubit.sliderValue == 0
-                      //     ? model.initValue
-                      //     : CoronaCubit.sliderValue,
                       onChanged: (newValue) {
                         cubit.onChangeSliderValue(newValue: newValue);
                       },

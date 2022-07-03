@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:corona_test_project/generated/l10n.dart';
 import 'package:corona_test_project/modules/register_login/cubit/cubit.dart';
 import 'package:corona_test_project/modules/sidebar_screen/sidebar_screen.dart';
@@ -23,6 +25,7 @@ import 'modules/setting/setting_screen.dart';
 void main() async {
   BlocOverrides.runZoned(
     () async {
+      HttpOverrides.global = MyHttpOverrides();
       WidgetsFlutterBinding.ensureInitialized();
       await CasheHelper.init();
       await Firebase.initializeApp();
@@ -199,5 +202,14 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

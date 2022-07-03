@@ -1,5 +1,5 @@
+import 'dart:convert';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:corona_test_project/models/user_model/user_model.dart';
 import 'package:corona_test_project/modules/register_login/login_screen/login_screen.dart';
@@ -11,8 +11,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:http/http.dart' as http;
 
 class CoronaCubit extends Cubit<CoronaStates> {
   CoronaCubit() : super(CoronaInitState());
@@ -46,6 +48,44 @@ class CoronaCubit extends Cubit<CoronaStates> {
     } on PlatformException catch (e) {
       print('failed to make image: $e');
     }
+  }
+
+  String? message;
+  uploadImage({File? imageFile}) async {
+    emit(CoronaUploadImageToServerLoadingState());
+    print("before link");
+    final request = http.MultipartRequest(
+        'POST', Uri.parse('https://efe6-197-40-255-193.eu.ngrok.io/upload'));
+    print("after link");
+    final headers = {'content-type': 'multipart/form-data'};
+    print("after link1");
+    request.files.add(
+      http.MultipartFile(
+          'image', imageFile!.readAsBytes().asStream(), imageFile.lengthSync(),
+          filename: imageFile.path.split('/').last),
+    );
+    request.headers.addAll(headers);
+    late StreamedResponse response;
+    request.send().then((value) {
+      response = value;
+
+      late http.Response res;
+      http.Response.fromStream(response).then((value) {
+        res = value;
+
+        final resJson = jsonDecode(res.body);
+
+        message = resJson['message'];
+
+        emit(CoronaUploadImageToServerSuccessState());
+      }).onError((error, stackTrace) {
+        print("error in stream${error.toString()}");
+      });
+    }).onError((error, stackTrace) {
+      print("error in request${error.toString()}");
+    });
+
+    // print("status $message");
   }
 
   //firebase get user

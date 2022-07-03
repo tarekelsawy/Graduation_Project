@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../clip_path/clip_paths.dart';
+import 'package:http/http.dart' as http;
 
 class GetImageScreen extends StatelessWidget {
   const GetImageScreen({Key? key}) : super(key: key);
@@ -168,9 +169,12 @@ class GetImageScreen extends StatelessWidget {
                                   heroTag: 'hero2',
                                   onPressed: CoronaCubit.imageFile != null
                                       ? () {
-                                          navigateTo(
-                                              context: context,
-                                              widget: FinalDoneScreen());
+                                          cubit.uploadImage(
+                                              imageFile: CoronaCubit.imageFile);
+
+                                          // navigateTo(
+                                          //     context: context,
+                                          //     widget: FinalDoneScreen());
                                         }
                                       : null,
                                   child: Center(
