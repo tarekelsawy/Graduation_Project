@@ -1,3 +1,4 @@
+import 'package:corona_test_project/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 
 class LoginOption extends StatelessWidget {
@@ -9,10 +10,11 @@ class LoginOption extends StatelessWidget {
       children: [
         Text(
           'Existing User?',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: colorBlack,
+              ),
         ),
         SizedBox(
           height: 12,
@@ -20,13 +22,13 @@ class LoginOption extends StatelessWidget {
         Container(
           height: 40,
           decoration: BoxDecoration(
-            color: Color(0xFF1C1C1C),
+            color: colorBlack,
             borderRadius: BorderRadius.all(
               Radius.circular(25),
             ),
             boxShadow: [
               BoxShadow(
-                color: Color(0xFF1C1C1C).withOpacity(0.2),
+                color: colorBlack.withOpacity(0.2),
                 spreadRadius: 3.0,
                 blurRadius: 4,
                 offset: Offset(0, 3),
@@ -39,7 +41,7 @@ class LoginOption extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFF3D657),
+                color: colorYellow,
               ),
             ),
           ),

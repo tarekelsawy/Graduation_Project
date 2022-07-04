@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:corona_test_project/modules/register_login/cubit/states.dart';
+import 'package:corona_test_project/shared/cubit/cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,6 +23,12 @@ class LoginAndRegisterCubit extends Cubit<LoginAndRegisterStates> {
     isLoginPassSecure = !isLoginPassSecure;
 
     emit(LoginChangeObsecureState());
+  }
+
+  int length = 0;
+  void calcPassStrength(int len) {
+    length = len;
+    emit(RegisterCalcPasswordStrength());
   }
 
   bool isRegisterPassSecure = true;
@@ -53,6 +60,8 @@ class LoginAndRegisterCubit extends Cubit<LoginAndRegisterStates> {
         phone: phone,
         uId: value.user!.uid,
       );
+
+      emit(RegisterSuccessState());
     }).catchError((onError) {
       print(onError);
       emit(RegisterErrorState(onError.toString().substring(29)));

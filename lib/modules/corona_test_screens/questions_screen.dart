@@ -19,6 +19,7 @@ import '../clip_path/clip_paths.dart';
 
 class QuestionModel {
   String question;
+  int divisions;
   double min;
   double max;
   double initValue;
@@ -26,6 +27,7 @@ class QuestionModel {
   String postFixText;
   QuestionModel(
       {required this.question,
+      required this.divisions,
       required this.max,
       required this.min,
       required this.initValue,
@@ -44,6 +46,7 @@ class QuestionTestScreen extends StatelessWidget {
     List<QuestionModel> questionsList = [
       QuestionModel(
           question: S.of(context).q1,
+          divisions: 100,
           max: 42,
           min: 37,
           initValue: 37,
@@ -52,16 +55,18 @@ class QuestionTestScreen extends StatelessWidget {
       //prefix ->normal ---post high
       QuestionModel(
         question: S.of(context).q2,
+        divisions: 3,
         max: 1,
         min: 0,
         initValue: 0,
-        postFixText: S.of(context).no,
-        prefixText: S.of(context).yes,
+        postFixText: S.of(context).yes,
+        prefixText: S.of(context).no,
       ),
       //display the sumb in center
       QuestionModel(
         question: S.of(context).q3,
-        max: 5,
+        divisions: 3,
+        max: 1,
         min: 0,
         initValue: 0,
         postFixText: S.of(context).wholeBody,
@@ -69,7 +74,8 @@ class QuestionTestScreen extends StatelessWidget {
       ),
       QuestionModel(
         question: S.of(context).q4,
-        max: 5,
+        divisions: 3,
+        max: 1,
         min: 0,
         initValue: 0,
         postFixText: S.of(context).high,
@@ -77,7 +83,8 @@ class QuestionTestScreen extends StatelessWidget {
       ),
       QuestionModel(
         question: S.of(context).q5,
-        max: 5,
+        divisions: 3,
+        max: 1,
         min: 0,
         initValue: 0,
         postFixText: S.of(context).hard,
@@ -85,7 +92,8 @@ class QuestionTestScreen extends StatelessWidget {
       ),
       QuestionModel(
         question: S.of(context).q6,
-        max: 5,
+        divisions: 3,
+        max: 1,
         min: 0,
         initValue: 0,
         postFixText: S.of(context).paintful,
@@ -93,7 +101,8 @@ class QuestionTestScreen extends StatelessWidget {
       ),
       QuestionModel(
         question: S.of(context).q7,
-        max: 5,
+        divisions: 3,
+        max: 1,
         min: 0,
         initValue: 0,
         postFixText: S.of(context).runny,
@@ -101,7 +110,8 @@ class QuestionTestScreen extends StatelessWidget {
       ),
       QuestionModel(
         question: S.of(context).q8,
-        max: 5,
+        divisions: 3,
+        max: 1,
         min: 0,
         initValue: 0,
         postFixText: S.of(context).paintful,
@@ -144,6 +154,7 @@ class QuestionTestScreen extends StatelessWidget {
                             model: questionsList[index],
                             context: context,
                             cubit: cubit,
+                            index: index,
                           );
                         },
                         itemCount: questionsList.length,
@@ -243,7 +254,8 @@ class QuestionTestScreen extends StatelessWidget {
 Widget pageItem(
     {required QuestionModel model,
     required BuildContext context,
-    required CoronaCubit cubit}) {
+    required CoronaCubit cubit,
+    required int index}) {
   return Container(
     color: isDark ? colorYellow : colorWhite,
     width: double.infinity,
@@ -321,29 +333,38 @@ Widget pageItem(
                 Expanded(
                   child: SliderTheme(
                     data: SliderTheme.of(context).copyWith(
-                      valueIndicatorColor: CoronaCubit.sliderValue <= 0
-                          ? Color(0xFF1C1C1C)
-                          : Colors.red, // This is what you are asking for
-
-                      thumbColor: CoronaCubit.sliderValue <= 0
-                          ? colorBlack
-                          : Colors.red,
-                      overlayColor: CoronaCubit.sliderValue <= 0
-                          ? colorBlack
-                          : Colors.red,
+                      valueIndicatorColor:
+                          selectColor(index: index, value: cubit.qValues[index])
+                              ? Color.fromARGB(255, 231, 17, 2)
+                              : getColor(),
+                      valueIndicatorTextStyle:
+                          Theme.of(context).textTheme.bodyText1!.copyWith(
+                                color: colorWhite,
+                              ),
+                      thumbColor:
+                          selectColor(index: index, value: cubit.qValues[index])
+                              ? Color.fromARGB(255, 231, 17, 2)
+                              : getColor(),
+                      overlayColor:
+                          selectColor(index: index, value: cubit.qValues[index])
+                              ? Color.fromARGB(255, 231, 17, 2)
+                              : getColor(),
+                      activeTrackColor: getColor(),
+                      inactiveTickMarkColor: getColor(),
                     ),
                     child: Slider(
-                      value: (model.min + model.max) / 2,
+                      value: cubit.qValues[index],
                       onChanged: (newValue) {
-                        cubit.onChangeSliderValue(newValue: newValue);
+                        cubit.onChangeSliderValue(
+                            newValue: newValue, index: index);
                       },
                       min: model.min,
                       max: model.max,
-                      divisions: 100,
-                      label: '${CoronaCubit.sliderValue}',
-                      activeColor: CoronaCubit.sliderValue <= 0
-                          ? Color(0xFF1C1C1C)
-                          : Colors.red,
+                      divisions: model.divisions,
+                      label: selectLabel(
+                        index: index,
+                        value: cubit.qValues[index],
+                      ),
                     ),
                   ),
                 ),
@@ -384,6 +405,9 @@ Widget pageItem(
 //     throw UnimplementedError();
 //   }
 // }
+Color getColor() {
+  return isDark ? colorBlack : colorPurple;
+}
 
 String convertStringToNumber(String s) {
   late String number;
@@ -420,4 +444,98 @@ String convertStringToNumber(String s) {
       break;
   }
   return number;
+}
+
+bool selectColor({
+  required int index,
+  required double value,
+}) {
+  bool flag = false;
+  switch (index) {
+    case 0:
+      if (value > 38.5) flag = true;
+      break;
+    case 1:
+      flag = valueBetween(value, 0.60, 1.0);
+      break;
+    case 2:
+      flag = valueBetween(value, 0.60, 1.0);
+      break;
+    case 3:
+      flag = valueBetween(value, 0.60, 1.0);
+      break;
+    case 4:
+      flag = valueBetween(value, 0.60, 1.0);
+      break;
+    case 5:
+      flag = valueBetween(value, 0.60, 1.0);
+      break;
+    case 6:
+      flag = valueBetween(value, 0.60, 1.0);
+      break;
+    case 7:
+      flag = valueBetween(value, 0.60, 1.0);
+      break;
+  }
+  return flag;
+}
+
+bool valueBetween(double v1, double v2, double v3) {
+  return v1 > v2 && v1 <= v3 ? true : false;
+}
+
+String selectLabel({
+  required int index,
+  required double value,
+}) {
+  String result = '';
+  switch (index) {
+    case 0:
+      result = '${value.toStringAsFixed(2)}';
+      break;
+    case 1:
+      if (value == 0.0) result = 'no-tired';
+      if (valueBetween(value, 0.3, 0.35)) result = 'semi-tired';
+      if (valueBetween(value, 0.6, 0.69)) result = 'tired';
+      if (valueBetween(value, 0.9, 1.0)) result = 'very-tired';
+      break;
+    case 2:
+      if (value == 0.0) result = 'no-tired';
+      if (valueBetween(value, 0.3, 0.35)) result = 'semi-tired';
+      if (valueBetween(value, 0.6, 0.69)) result = 'tired';
+      if (valueBetween(value, 0.9, 1.0)) result = 'very-tired';
+      break;
+    case 3:
+      if (value == 0.0) result = 'no-tired';
+      if (valueBetween(value, 0.3, 0.35)) result = 'semi-tired';
+      if (valueBetween(value, 0.6, 0.69)) result = 'tired';
+      if (valueBetween(value, 0.9, 1.0)) result = 'very-tired';
+      break;
+    case 4:
+      if (value == 0.0) result = 'no-tired';
+      if (valueBetween(value, 0.3, 0.35)) result = 'no-smell';
+      if (valueBetween(value, 0.6, 0.69)) result = 'no-taste';
+      if (valueBetween(value, 0.9, 1.0)) result = 'no-no';
+      break;
+    case 5:
+      if (value == 0.0) result = 'no-tired';
+      if (valueBetween(value, 0.3, 0.35)) result = 'semi-tired';
+      if (valueBetween(value, 0.6, 0.69)) result = 'tired';
+      if (valueBetween(value, 0.9, 1.0)) result = 'very-tired';
+      break;
+    case 6:
+      if (value == 0.0) result = 'no-tired';
+      if (valueBetween(value, 0.3, 0.35)) result = 'semi-tired';
+      if (valueBetween(value, 0.6, 0.69)) result = 'tired';
+      if (valueBetween(value, 0.9, 1.0)) result = 'very-tired';
+      break;
+    case 7:
+      if (value == 0.0) result = 'no-tired';
+      if (valueBetween(value, 0.3, 0.35)) result = 'semi-tired';
+      if (valueBetween(value, 0.6, 0.69)) result = 'tired';
+      if (valueBetween(value, 0.9, 1.0)) result = 'very-tired';
+      break;
+  }
+  CoronaCubit.qResult[index] = result;
+  return result;
 }

@@ -23,14 +23,44 @@ class CoronaCubit extends Cubit<CoronaStates> {
 
   static int questionPageIndex = 0;
   static double sliderValue = 0;
+  static List<dynamic> qResult = [
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+  ];
+  List<double> qValues = [
+    37.5,
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+  ];
+  List<int> counters = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+  ];
 
   void onChangeQuestionPageIndex({required int newIndex}) {
     questionPageIndex = newIndex;
     emit(CoronaOnChangeQuestionPageIndexState());
   }
 
-  void onChangeSliderValue({required double newValue}) {
-    sliderValue = newValue;
+  void onChangeSliderValue({required double newValue, required int index}) {
+    qValues[index] = newValue;
     emit(CoronaOnChangeSliderValueState());
   }
 
@@ -55,7 +85,7 @@ class CoronaCubit extends Cubit<CoronaStates> {
     emit(CoronaUploadImageToServerLoadingState());
     print("before link");
     final request = http.MultipartRequest(
-        'POST', Uri.parse('https://efe6-197-40-255-193.eu.ngrok.io/upload'));
+        'POST', Uri.parse('https://da27-156-219-219-228.eu.ngrok.io/upload'));
     print("after link");
     final headers = {'content-type': 'multipart/form-data'};
     print("after link1");

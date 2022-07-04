@@ -44,3 +44,5 @@ class RegisterErrorCreateUserState extends LoginAndRegisterStates {
   String errorMessage;
   RegisterErrorCreateUserState(this.errorMessage);
 }
+
+class RegisterCalcPasswordStrength extends LoginAndRegisterStates {}

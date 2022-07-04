@@ -58,7 +58,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             child: const Text(
               'SKIP',
               style: TextStyle(
-                color: colorYellow,
+                color: Color(0xFFF3D657),
               ),
             ),
           )
@@ -172,7 +172,7 @@ Widget pageItem(
         model.paragraph,
         style: const TextStyle(
           fontFamily: 'Lobster',
-          color: colorYellow,
+          color: Color(0xFFF3D657),
         ),
       ),
     ],

@@ -3,6 +3,7 @@ import 'package:corona_test_project/modules/register_login/cubit/cubit.dart';
 import 'package:corona_test_project/modules/register_login/cubit/states.dart';
 import 'package:corona_test_project/shared/components/components.dart';
 import 'package:corona_test_project/shared/components/constants.dart';
+import 'package:corona_test_project/shared/cubit/cubit.dart';
 import 'package:corona_test_project/shared/network/local/cashe_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

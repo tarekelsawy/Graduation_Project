@@ -33,6 +33,7 @@ void main() async {
 
       uId = CasheHelper.getData(key: 'uId') ?? uId;
       isDark = CasheHelper.getData(key: 'isDark') ?? true;
+      if (isDark == false) colorYellow = colorWhite;
       currentLanguage = CasheHelper.getData(key: 'language') ?? currentLanguage;
       if (uId != null) {
         startWidget = QuestionTestScreen();
@@ -165,7 +166,7 @@ class MyApp extends StatelessWidget {
                 thumbColor: colorBlack,
                 overlayColor: colorBlack,
                 thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
-                overlayShape: RoundSliderOverlayShape(overlayRadius: 15.0),
+                overlayShape: RoundSliderOverlayShape(overlayRadius: 17.0),
               ),
               appBarTheme: const AppBarTheme(
                 systemOverlayStyle: SystemUiOverlayStyle(

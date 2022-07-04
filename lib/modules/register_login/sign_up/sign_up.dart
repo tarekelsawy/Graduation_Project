@@ -100,6 +100,9 @@ class SignUpScreen extends StatelessWidget {
               ),
               TextFormField(
                 controller: passController,
+                onChanged: (String value) {
+                  cubit.calcPassStrength(value.length);
+                },
                 keyboardType: TextInputType.visiblePassword,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
@@ -124,7 +127,7 @@ class SignUpScreen extends StatelessWidget {
                     },
                   ),
                   labelText: 'Enter Your Password',
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontSize: 12,
                     color: Color(0xFF3F3C31),
                     fontWeight: FontWeight.bold,
@@ -147,6 +150,113 @@ class SignUpScreen extends StatelessWidget {
               ),
               SizedBox(
                 height: 16,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                    ),
+                    child: Row(
+                      children: [
+                        Row(
+                          children: [
+                            if (cubit.length >= 1)
+                              Container(
+                                height: 4,
+                                width: 30,
+                                color: Color.fromARGB(255, 252, 18, 1),
+                              ),
+                            if (cubit.length >= 2)
+                              Container(
+                                  height: 4,
+                                  width: 20,
+                                  color: Color.fromARGB(255, 251, 100, 89)),
+                            if (cubit.length >= 4)
+                              Container(
+                                  height: 4,
+                                  width: 20,
+                                  color: Color.fromARGB(255, 247, 150, 143)),
+                            if (cubit.length >= 6)
+                              Container(
+                                height: 4,
+                                width: 20,
+                                color: Colors.orange,
+                              ),
+                            if (cubit.length >= 8)
+                              Container(
+                                height: 4,
+                                width: 20,
+                                color: Color.fromARGB(255, 252, 189, 94),
+                              ),
+                            if (cubit.length >= 10)
+                              Container(
+                                  height: 4,
+                                  width: 20,
+                                  color: Color.fromARGB(255, 160, 244, 163)),
+                            if (cubit.length >= 12)
+                              Container(
+                                  height: 4,
+                                  width: 20,
+                                  color: Color.fromARGB(255, 85, 251, 90)),
+                            if (cubit.length >= 14)
+                              Container(
+                                  height: 4,
+                                  width: 30,
+                                  color: Color.fromARGB(255, 2, 252, 10)),
+                          ],
+                        ),
+                        Spacer(),
+                        Row(
+                          children: [
+                            if (cubit.length >= 1 && cubit.length < 4)
+                              Text(
+                                'So Weak',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(
+                                      color: Color.fromARGB(255, 252, 18, 1),
+                                      fontSize: 8.0,
+                                    ),
+                              ),
+                            if (cubit.length >= 4 && cubit.length < 8)
+                              Text(
+                                'Weak',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(
+                                      color: Color.fromARGB(255, 252, 189, 94),
+                                      fontSize: 8.0,
+                                    ),
+                              ),
+                            if (cubit.length >= 8 && cubit.length < 12)
+                              Text(
+                                'Medium',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(
+                                      color: Color.fromARGB(255, 160, 244, 163),
+                                      fontSize: 8.0,
+                                    ),
+                              ),
+                            if (cubit.length >= 12)
+                              Text(
+                                'Strong',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(
+                                      color: Color.fromARGB(255, 2, 252, 10),
+                                      fontSize: 8.0,
+                                    ),
+                              ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
               defaultRegisterTextField(
                 controller: phoneController,
