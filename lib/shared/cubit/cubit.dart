@@ -115,14 +115,14 @@ class CoronaCubit extends Cubit<CoronaStates> {
       print("error in request${error.toString()}");
     });
 
-    // print("status $message");
+    // rpint("status $message");
   }
 
   //firebase get user
-  UserModel? userModel;
+  static UserModel? userModel;
   void getUserData() {
     emit(CoronaGetUserLoadingState());
-    print('uId:$uId');
+    print('uIdgetUser:$uId');
     FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
       userModel = UserModel.fromJson(value.data());
 

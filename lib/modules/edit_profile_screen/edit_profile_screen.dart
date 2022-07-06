@@ -42,14 +42,16 @@ class EditProfileScreen extends StatelessWidget {
       builder: (context, state) {
         var locale = S.of(context);
         CoronaCubit cubit = CoronaCubit.get(context);
-        emailController.text = cubit.userModel!.email ?? 'type your email';
-        nameController.text = cubit.userModel!.name ?? 'type your name';
-        phoneController.text = cubit.userModel!.phone ?? 'type your phone';
+        emailController.text =
+            CoronaCubit.userModel!.email ?? 'type your email';
+        nameController.text = CoronaCubit.userModel!.name ?? 'type your name';
+        phoneController.text =
+            CoronaCubit.userModel!.phone ?? 'type your phone';
 
         birthDateController.text =
-            cubit.userModel!.birthDate ?? 'type your birthDate';
+            CoronaCubit.userModel!.birthDate ?? 'type your birthDate';
         addressController.text =
-            cubit.userModel!.country ?? 'type your address';
+            CoronaCubit.userModel!.country ?? 'type your address';
 
         return Scaffold(
           drawer: SideBarScreen(),
@@ -58,7 +60,7 @@ class EditProfileScreen extends StatelessWidget {
               locale.editProfile,
             ),
           ),
-          body: cubit.userModel != null
+          body: CoronaCubit.userModel != null
               ? Column(
                   children: [
                     Container(
@@ -101,7 +103,7 @@ class EditProfileScreen extends StatelessWidget {
                                     : CircleAvatar(
                                         radius: 48,
                                         backgroundImage: NetworkImage(
-                                            '${cubit.userModel!.profileImage}'),
+                                            '${CoronaCubit.userModel!.profileImage}'),
                                       ),
                               ),
                               Container(

@@ -34,6 +34,10 @@ class SignUpScreen extends StatelessWidget {
             key: 'uId',
             value: state.uId,
           ).then((value) {
+            showToast(
+              message: 'Registration Complete Successfully',
+              toastStatus: ToastStatus.SUCCESS,
+            );
             navigateAndFinish(context: context, widget: QuestionTestScreen());
           }).catchError((onError) {
             print('cashehelper Error:${onError.toString()}');

@@ -32,16 +32,16 @@ class SideBarScreen extends StatelessWidget {
         return Drawer(
           child: ListView(
             children: [
-              cubit.userModel != null
+              CoronaCubit.userModel != null
                   ? UserAccountsDrawerHeader(
                       accountName: Text(
-                        '${cubit.userModel!.name}',
+                        '${CoronaCubit.userModel!.name}',
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               color: colorWhite,
                             ),
                       ),
                       accountEmail: Text(
-                        '${cubit.userModel!.email}',
+                        '${CoronaCubit.userModel!.email}',
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(
                               color: Colors.grey[500],
                               fontSize: 12.0,
@@ -49,7 +49,7 @@ class SideBarScreen extends StatelessWidget {
                       ),
                       currentAccountPicture: ClipOval(
                         child: Image.network(
-                          '${cubit.userModel!.profileImage}',
+                          '${CoronaCubit.userModel!.profileImage}',
                           fit: BoxFit.cover,
                           width: 90,
                           height: 90,

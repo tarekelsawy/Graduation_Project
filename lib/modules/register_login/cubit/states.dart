@@ -46,3 +46,5 @@ class RegisterErrorCreateUserState extends LoginAndRegisterStates {
 }
 
 class RegisterCalcPasswordStrength extends LoginAndRegisterStates {}
+
+class GetUserErrorState extends LoginAndRegisterStates {}

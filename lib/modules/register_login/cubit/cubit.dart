@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:corona_test_project/modules/register_login/cubit/states.dart';
 import 'package:corona_test_project/shared/cubit/cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../models/user_model/user_model.dart';
@@ -93,6 +94,7 @@ class LoginAndRegisterCubit extends Cubit<LoginAndRegisterStates> {
         .doc('$uId')
         .set(userModel!.asMap())
         .then((value) {
+      CoronaCubit.userModel = userModel;
       emit(RegisterSuccessCreateUserState(uId.toString()));
     }).catchError((onError) {
       print(onError);
@@ -109,8 +111,20 @@ class LoginAndRegisterCubit extends Cubit<LoginAndRegisterStates> {
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
       print(value.user!.email);
-      print('uId: ${value.user!.uid}');
-      emit(LoginSuccessState(value.user!.uid.toString()));
+      print('uIdAccLog: ${value.user!.uid}');
+      String uId = value.user!.uid.toString();
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uId)
+          .get()
+          .then((value) {
+        CoronaCubit.userModel = UserModel.fromJson(value.data());
+        print('emaillogin ${CoronaCubit.userModel!.email}');
+        emit(LoginSuccessState(uId));
+      }).catchError((onError) {
+        print("on get user Error${onError.toString()}");
+        emit(GetUserErrorState());
+      });
     }).catchError((onError) {
       print(onError);
       emit(LoginErrorState(onError.toString()));

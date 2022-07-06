@@ -25,7 +25,7 @@ class SettingScreen extends StatelessWidget {
           appBar: AppBar(
             title: Text(S.of(context).setting),
           ),
-          body: cubit.userModel != null
+          body: CoronaCubit.userModel != null
               ? Padding(
                   padding: const EdgeInsets.only(
                     bottom: 15.0,
@@ -69,7 +69,7 @@ class SettingScreen extends StatelessWidget {
                                   : CircleAvatar(
                                       radius: 48,
                                       backgroundImage: NetworkImage(
-                                          '${cubit.userModel!.profileImage}'),
+                                          '${CoronaCubit.userModel!.profileImage}'),
                                     ),
                             )
                           ],
@@ -79,14 +79,14 @@ class SettingScreen extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        '${cubit.userModel!.name}',
+                        '${CoronaCubit.userModel!.name}',
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
-                        '${cubit.userModel!.email}',
+                        '${CoronaCubit.userModel!.email}',
                         style: Theme.of(context).textTheme.bodyText2,
                       ),
                       SizedBox(
