@@ -1,72 +1,52 @@
-import 'dart:async';
-
-import 'package:corona_test_project/modules/on_boarding/onboarding_screen.dart';
+import 'package:corona_test_project/shared/components/components.dart';
+import 'package:corona_test_project/shared/components/constants.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
+import 'package:lottie/lottie.dart';
 
-class CoronaSplashScreen extends StatefulWidget {
-  const CoronaSplashScreen({Key? key}) : super(key: key);
+class CoronaTestSplashScreen extends StatefulWidget {
+  final startScreen;
+
+  const CoronaTestSplashScreen({Key? key, required this.startScreen})
+      : super(key: key);
 
   @override
-  State<CoronaSplashScreen> createState() => _CoronaSplashScreenState();
+  State<CoronaTestSplashScreen> createState() => _CoronaTestSplashScreenState();
 }
 
-class _CoronaSplashScreenState extends State<CoronaSplashScreen>
-    with TickerProviderStateMixin {
-  late final AnimationController _animationController = AnimationController(
-    vsync: this,
-    duration: Duration(
-      seconds: 3,
-    ),
-  )..repeat();
-
+class _CoronaTestSplashScreenState extends State<CoronaTestSplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(
+    Future.delayed(
         const Duration(
           seconds: 5,
         ), () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) {
-          return OnBoardingScreen();
-        }),
-      );
+      navigateAndFinish(context: context, widget: widget.startScreen);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      backgroundColor: colorBlack,
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            AnimatedBuilder(
-                animation: _animationController,
-                child: Container(
-                  height: 200,
-                  width: 200,
-                  child: Image(
-                    image: AssetImage('assets/images/corona.jpg'),
-                  ),
-                ),
-                builder: (
-                  BuildContext context,
-                  Widget? child,
-                ) {
-                  return Transform.rotate(
-                    angle: _animationController.value * 2.0 * math.pi,
-                    child: child,
-                  );
-                }),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.08,
+            Expanded(
+              child: Lottie.asset(
+                'assets/icons/animation_splash.json',
+              ),
             ),
-            const Text(
-              'Covid-19 Suspection',
-              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+            Container(
+              child: Image.asset(
+                'assets/icons/COVID-19 SUSPECTION TEST-logos_black1.png',
+                width: double.infinity,
+                height: 60.0,
+                color: colorYellow,
+              ),
             ),
           ],
         ),

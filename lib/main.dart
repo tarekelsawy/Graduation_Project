@@ -1,8 +1,13 @@
 import 'dart:io';
 
 import 'package:corona_test_project/generated/l10n.dart';
+import 'package:corona_test_project/layout/home/home_screen.dart';
 import 'package:corona_test_project/modules/register_login/cubit/cubit.dart';
+import 'package:corona_test_project/modules/result/result_screen.dart';
+import 'package:corona_test_project/modules/review/review.dart';
 import 'package:corona_test_project/modules/sidebar_screen/sidebar_screen.dart';
+import 'package:corona_test_project/modules/start_test/start.dart';
+import 'package:corona_test_project/modules/test_completed/test_completed.dart';
 import 'package:corona_test_project/shared/bloc_observer.dart';
 import 'package:corona_test_project/shared/components/constants.dart';
 import 'package:corona_test_project/shared/cubit/cubit.dart';
@@ -32,11 +37,12 @@ void main() async {
       Widget startWidget = LoginScreen();
 
       uId = CasheHelper.getData(key: 'uId') ?? uId;
+      print('$uId');
       isDark = CasheHelper.getData(key: 'isDark') ?? true;
-      if (isDark == false) colorYellow = colorWhite;
+
       currentLanguage = CasheHelper.getData(key: 'language') ?? currentLanguage;
       if (uId != null) {
-        startWidget = QuestionTestScreen();
+        startWidget = HomeScreen();
       } else {
         startWidget = LoginScreen();
       }
@@ -70,23 +76,23 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             locale: Locale('$currentLanguage'),
-            localizationsDelegates: [
+            localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: [
+            supportedLocales: const [
               Locale('en', ''), // English, no country code
               Locale('ar', ''), // Arabic, no country code
             ],
-            home: startScreen,
+            home: CoronaTestSplashScreen(startScreen: startScreen),
             debugShowCheckedModeBanner: false,
             themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
             theme: ThemeData(
               primaryColorDark: colorPurple,
               primarySwatch: Colors.deepPurple,
-              iconTheme: IconThemeData(
+              iconTheme: const IconThemeData(
                 color: colorBlack,
               ),
               floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -115,7 +121,6 @@ class MyApp extends StatelessWidget {
                   statusBarBrightness: Brightness.light,
                   statusBarIconBrightness: Brightness.dark,
                 ),
-                titleSpacing: 20.0,
                 elevation: 0,
                 iconTheme: IconThemeData(
                   color: Colors.black,
@@ -150,10 +155,10 @@ class MyApp extends StatelessWidget {
               floatingActionButtonTheme: FloatingActionButtonThemeData(
                 backgroundColor: colorYellow,
               ),
-              drawerTheme: DrawerThemeData(
+              drawerTheme: const DrawerThemeData(
                 backgroundColor: colorBlack,
                 elevation: 10.0,
-                shape: const RoundedRectangleBorder(
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20.0),
                     bottomRight: Radius.circular(20.0),
@@ -173,14 +178,13 @@ class MyApp extends StatelessWidget {
                   statusBarBrightness: Brightness.dark,
                   statusBarIconBrightness: Brightness.light,
                 ),
-                titleSpacing: 20.0,
                 elevation: 0,
                 iconTheme: IconThemeData(
                   color: Colors.white,
                 ),
                 titleTextStyle: TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w900,
                   fontSize: 20,
                   fontFamily: 'Lato',
                 ),

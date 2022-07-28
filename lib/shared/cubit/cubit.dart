@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:corona_test_project/models/user_model/user_model.dart';
 import 'package:corona_test_project/modules/register_login/login_screen/login_screen.dart';
@@ -8,13 +9,13 @@ import 'package:corona_test_project/shared/components/constants.dart';
 import 'package:corona_test_project/shared/cubit/states.dart';
 import 'package:corona_test_project/shared/network/local/cashe_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 
 class CoronaCubit extends Cubit<CoronaStates> {
   CoronaCubit() : super(CoronaInitState());
@@ -43,16 +44,17 @@ class CoronaCubit extends Cubit<CoronaStates> {
     0.2,
     0.2,
   ];
-  List<int> counters = [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
+  static List<double> qCounters = [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
   ];
+  static double qPresult = 0;
 
   void onChangeQuestionPageIndex({required int newIndex}) {
     questionPageIndex = newIndex;
@@ -80,12 +82,12 @@ class CoronaCubit extends Cubit<CoronaStates> {
     }
   }
 
-  String? message;
+  static String? imageCovidPercent;
   uploadImage({File? imageFile}) async {
     emit(CoronaUploadImageToServerLoadingState());
     print("before link");
     final request = http.MultipartRequest(
-        'POST', Uri.parse('https://da27-156-219-219-228.eu.ngrok.io/upload'));
+        'POST', Uri.parse('https://cb92-197-135-125-140.eu.ngrok.io/upload'));
     print("after link");
     final headers = {'content-type': 'multipart/form-data'};
     print("after link1");
@@ -105,17 +107,23 @@ class CoronaCubit extends Cubit<CoronaStates> {
 
         final resJson = jsonDecode(res.body);
 
-        message = resJson['message'];
-
-        emit(CoronaUploadImageToServerSuccessState());
+        imageCovidPercent = resJson['Covid'];
+        print('percent1:$imageCovidPercent');
+        FirebaseFirestore.instance.collection('image').doc(uId).update({
+          'covid_percent': resJson['Covid'],
+          'normal_percent': resJson['Normal'],
+        }).then((value) {
+          emit(CoronaUploadImageToServerSuccessState());
+        }).onError((error, stackTrace) {
+          print(
+              'error in upload percent covid to firebase ${onError.toString()}');
+        });
       }).onError((error, stackTrace) {
         print("error in stream${error.toString()}");
       });
     }).onError((error, stackTrace) {
       print("error in request${error.toString()}");
     });
-
-    // rpint("status $message");
   }
 
   //firebase get user
@@ -125,7 +133,7 @@ class CoronaCubit extends Cubit<CoronaStates> {
     print('uIdgetUser:$uId');
     FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
       userModel = UserModel.fromJson(value.data());
-
+      print('uId:$uId');
       print('all user data:${value.data()}');
       emit(CoronaGetUserSuccessState());
     }).catchError((onError) {
@@ -232,5 +240,96 @@ class CoronaCubit extends Cubit<CoronaStates> {
     }).catchError((onError) {
       print('onCasheHelperError:$onError');
     });
+  }
+
+  void uploadQuestionDataToFireStore() {
+    emit(CoronaUploadQuestionToFirebaseLoadingState());
+    print('uid Error q:$uId');
+    FirebaseFirestore.instance.collection('questions').doc(uId).update({
+      'temprature': qResult[0],
+      'cough': qResult[1],
+      'tiredness': qResult[2],
+      'smell_taste': qResult[3],
+      'breathe': qResult[4],
+      'headache': qResult[5],
+      'runny_nose': qResult[6],
+      'chest_pain': qResult[7],
+    }).then((value) {
+      print('Question successfully Uploaded');
+      emit(CoronaUploadQuestionToFirebaseSuccessState());
+    }).catchError((onError) {
+      print('Error upload question:${onError.toString()}');
+      emit(CoronaUploadQuestionToFirebaseErrorState());
+    });
+  }
+
+  void uploadTestResultDataToFireStore({required String res}) {
+    emit(CoronaUploadTestResultToFirebaseLoadingState());
+    FirebaseFirestore.instance.collection('test_result').doc(uId).update({
+      'infected': res,
+    }).then((value) {
+      print('TestResult successfully Uploaded');
+      emit(CoronaUploadTestResultToFirebaseSuccessState());
+    }).catchError((onError) {
+      print('Error upload TestResult:${onError.toString()}');
+      emit(CoronaUploadTestResultToFirebaseErrorState());
+    });
+  }
+
+  void uploadFeedbackDataToFireStore({
+    required String feedback,
+    required String positive,
+    required String negative,
+  }) {
+    emit(CoronaUploadFeedbackToFirebaseLoadingState());
+    FirebaseFirestore.instance.collection('feedback').doc(uId).update({
+      'feedback': feedback,
+      'negative_percent': negative,
+      'positive_percent': positive,
+    }).then((value) {
+      print('feedback successfully Uploaded');
+      emit(CoronaUploadFeedbackToFirebaseSuccessState());
+    }).catchError((onError) {
+      print('Error upload feedback:${onError.toString()}');
+      emit(CoronaUploadFeedbackToFirebaseErrorState());
+    });
+  }
+
+  String? positive;
+  String? negative;
+  void sendReview(String input) {
+    emit(CoronaUploadReviewToPythonLoadingState());
+    print('input:$input');
+    final url = 'https://b4e1-197-40-217-105.eu.ngrok.io/review';
+    final response = http
+        .post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'review': input.toString(),
+      }),
+    )
+        .then((value) {
+      print('value http: ${value.reasonPhrase}');
+
+      // final res = jsonDecode(value.body) as Map<String, dynamic>;
+      // print('res:${res['positive']}');
+      positive = jsonDecode(value.body)['positive'].toString();
+      negative = jsonDecode(value.body)['negative'].toString();
+      uploadFeedbackDataToFireStore(
+        feedback: input,
+        positive: positive ?? '0.7',
+        negative: negative ?? '0.0',
+      );
+      print('result from review: ${jsonDecode(value.body)['positive']}');
+      print('result from review: ${jsonDecode(value.body)['negative']}');
+      emit(CoronaUploadReviewToPythonSuccessState());
+    }).catchError((onError) {
+      print('${onError.toString()}');
+      emit(CoronaUploadReviewToPythonErrorState());
+    });
+    ;
   }
 }

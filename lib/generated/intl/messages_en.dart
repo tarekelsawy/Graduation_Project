@@ -22,10 +22,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "DWorry": MessageLookupByLibrary.simpleMessage(
+            "Don\'t worry, You are in a right hands"),
+        "Diarrhea": MessageLookupByLibrary.simpleMessage("Diarrhea"),
         "ar": MessageLookupByLibrary.simpleMessage("Arabic"),
+        "back": MessageLookupByLibrary.simpleMessage("Back"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
+        "common": MessageLookupByLibrary.simpleMessage("  Common\nSymptoms"),
+        "cough": MessageLookupByLibrary.simpleMessage("Coughing"),
         "countrySearch": MessageLookupByLibrary.simpleMessage("Country Search"),
         "dark": MessageLookupByLibrary.simpleMessage("Dark"),
+        "decCases": MessageLookupByLibrary.simpleMessage("decreasing of Cases"),
         "details": MessageLookupByLibrary.simpleMessage("Details"),
         "easy": MessageLookupByLibrary.simpleMessage("Easy"),
         "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
@@ -42,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter Your State"),
         "gallary": MessageLookupByLibrary.simpleMessage("Gallary"),
         "hard": MessageLookupByLibrary.simpleMessage("Hard"),
+        "hardBreathe": MessageLookupByLibrary.simpleMessage("Hard Breathe"),
+        "headache": MessageLookupByLibrary.simpleMessage("Headache"),
         "help": MessageLookupByLibrary.simpleMessage("Help"),
         "high": MessageLookupByLibrary.simpleMessage("High"),
         "homePage": MessageLookupByLibrary.simpleMessage("Home"),
@@ -49,9 +58,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "imagePreview": MessageLookupByLibrary.simpleMessage("Image Preview"),
         "imageProcessing":
             MessageLookupByLibrary.simpleMessage("Image Processing"),
+        "incCases": MessageLookupByLibrary.simpleMessage("Increasing of Cases"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "low": MessageLookupByLibrary.simpleMessage("LOW"),
+        "mostAges":
+            MessageLookupByLibrary.simpleMessage("Most Vulnerable Ages"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noneTired": MessageLookupByLibrary.simpleMessage("None Tired"),
         "nopain": MessageLookupByLibrary.simpleMessage("No Pain"),
@@ -76,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("You should see a doctor"),
         "setting": MessageLookupByLibrary.simpleMessage("Settings"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "test": MessageLookupByLibrary.simpleMessage("Test"),
         "typeCountrySearch":
             MessageLookupByLibrary.simpleMessage("Start typing to search"),
         "updateProfile": MessageLookupByLibrary.simpleMessage("Update Profile"),

@@ -1,9 +1,8 @@
-import 'package:corona_test_project/modules/corona_test_screens/questions_screen.dart';
+import 'package:corona_test_project/layout/home/home_screen.dart';
 import 'package:corona_test_project/modules/register_login/cubit/cubit.dart';
 import 'package:corona_test_project/modules/register_login/cubit/states.dart';
 import 'package:corona_test_project/shared/components/components.dart';
 import 'package:corona_test_project/shared/components/constants.dart';
-import 'package:corona_test_project/shared/cubit/cubit.dart';
 import 'package:corona_test_project/shared/network/local/cashe_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +12,33 @@ final globalKey = GlobalKey<FormState>();
 TextEditingController emailController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 
-class LoginContainer extends StatelessWidget {
+class LoginContainer extends StatefulWidget {
+  @override
+  State<LoginContainer> createState() => _LoginContainerState();
+}
+
+class _LoginContainerState extends State<LoginContainer>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> animation;
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+        vsync: this,
+        duration: Duration(
+          seconds: 3,
+        ));
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
+    controller.repeat();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginAndRegisterCubit, LoginAndRegisterStates>(
@@ -27,10 +52,16 @@ class LoginContainer extends StatelessWidget {
             key: 'uId',
             value: state.uId,
           ).then((value) {
-            navigateAndFinish(context: context, widget: QuestionTestScreen());
+            print('success uId:$uId');
+            navigateAndFinish(context: context, widget: HomeScreen());
           }).catchError((onError) {
             print('casheHelper Error ${onError.toString()}');
           });
+        }
+        if (state is LoginResetPasswordSuccessState) {
+          showToast(
+              message: 'see your email message to reset password',
+              toastStatus: ToastStatus.SUCCESS);
         }
       },
       builder: (context, state) {
@@ -41,33 +72,63 @@ class LoginContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Welcome to',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF1C1C1C),
-                  height: 1.8,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Text(
-                'Corona Test',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  height: 1,
-                  letterSpacing: 0.2,
-                  color: Color(0xFF1C1C1C),
-                ),
-              ),
-              Text(
-                'Please login to continue',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF1C1C1C),
-                  height: 1.2,
-                  fontWeight: FontWeight.w500,
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Welcome to',
+                            style:
+                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                                      fontSize: 12,
+                                      color: colorBlack,
+                                      height: 1.8,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                          ),
+                          Text(
+                            'Corona Test',
+                            style:
+                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      height: 1,
+                                      letterSpacing: 0.2,
+                                      color: colorBlack,
+                                    ),
+                          ),
+                          Text(
+                            'Please login to continue',
+                            style:
+                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                                      fontSize: 12,
+                                      color: colorBlack,
+                                      height: 1.2,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: RotationTransition(
+                      turns: animation,
+                      child: Container(
+                        height: 90.0,
+                        child: Image.asset(
+                          'assets/icons/virus_alt_Large.png',
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 16,
@@ -75,7 +136,7 @@ class LoginContainer extends StatelessWidget {
               defaultTextFormField(
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
-                label: 'Email/Username',
+                label: 'Type your Email',
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'type your email';
@@ -86,61 +147,63 @@ class LoginContainer extends StatelessWidget {
               SizedBox(
                 height: 8,
               ),
-              TextFormField(
-                controller: passwordController,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'type your password';
-                  }
-                },
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: cubit.isLoginPassSecure,
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      cubit.loginChangeObsecure();
-                    },
-                    icon: Icon(
-                      cubit.isLoginPassSecure
-                          ? Icons.remove_red_eye_outlined
-                          : Icons.visibility_off_outlined,
+              if (!cubit.isResetPass)
+                TextFormField(
+                  controller: passwordController,
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'type your password';
+                    }
+                  },
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: cubit.isLoginPassSecure,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        cubit.loginChangeObsecure();
+                      },
+                      icon: Icon(
+                        cubit.isLoginPassSecure
+                            ? Icons.remove_red_eye_outlined
+                            : Icons.visibility_off_outlined,
+                        color: colorBlack,
+                      ),
+                    ),
+                    prefixIcon: Icon(
+                      Icons.password_sharp,
                       color: colorBlack,
                     ),
-                  ),
-                  prefixIcon: Icon(
-                    Icons.password_sharp,
-                    color: colorBlack,
-                  ),
-                  labelText: 'Password',
-                  labelStyle: TextStyle(
-                    fontSize: 14,
-                    color: colorBlack,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
+                    labelText: 'Password',
+                    labelStyle: TextStyle(
+                      fontSize: 14,
+                      color: colorBlack,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                    filled: true,
+                    fillColor: Color(0xFFECC845),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 0,
                     ),
                   ),
-                  filled: true,
-                  fillColor: Color(0xFFECC845),
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 0,
-                  ),
+                  cursorColor: colorBlack,
                 ),
-                cursorColor: Color(0xFF1C1C1C),
-              ),
               SizedBox(
                 height: 24,
               ),
-              state is! LoginLoadingState
+              (state is! LoginLoadingState &&
+                      state is! LoginResetPasswordLoadingState)
                   ? Container(
                       height: 40,
                       decoration: BoxDecoration(
-                        color: Color(0xFF1C1C1C),
+                        color: colorBlack,
                         borderRadius: BorderRadius.all(
                           Radius.circular(25),
                         ),
@@ -156,13 +219,19 @@ class LoginContainer extends StatelessWidget {
                       child: MaterialButton(
                         onPressed: () {
                           if (globalKey.currentState!.validate()) {
-                            cubit.acceptLoginData(
-                                email: emailController.text,
-                                password: passwordController.text);
+                            if (!cubit.isResetPass) {
+                              print('acceptlog');
+                              cubit.acceptLoginData(
+                                  email: emailController.text,
+                                  password: passwordController.text);
+                            } else {
+                              print('resetEmail');
+                              cubit.resetEmail(email: emailController.text);
+                            }
                           }
                         },
                         child: Text(
-                          'Login',
+                          !cubit.isResetPass ? 'Login' : 'Reset',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -177,9 +246,11 @@ class LoginContainer extends StatelessWidget {
                       ),
                     ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  cubit.isReset(!cubit.isResetPass);
+                },
                 child: Text(
-                  'Forget Password?',
+                  cubit.isResetPass ? 'Login' : 'Forget Password?',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,

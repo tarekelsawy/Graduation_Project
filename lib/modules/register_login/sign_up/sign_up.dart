@@ -1,3 +1,4 @@
+import 'package:corona_test_project/layout/home/home_screen.dart';
 import 'package:corona_test_project/modules/corona_test_screens/questions_screen.dart';
 import 'package:corona_test_project/modules/register_login/cubit/cubit.dart';
 import 'package:corona_test_project/modules/register_login/cubit/states.dart';
@@ -34,11 +35,12 @@ class SignUpScreen extends StatelessWidget {
             key: 'uId',
             value: state.uId,
           ).then((value) {
+            print('success uId:$uId');
             showToast(
               message: 'Registration Complete Successfully',
               toastStatus: ToastStatus.SUCCESS,
             );
-            navigateAndFinish(context: context, widget: QuestionTestScreen());
+            navigateAndFinish(context: context, widget: HomeScreen());
           }).catchError((onError) {
             print('cashehelper Error:${onError.toString()}');
           });
@@ -94,6 +96,9 @@ class SignUpScreen extends StatelessWidget {
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'required field!';
+                  }
+                  if (!isValidEmail(value)) {
+                    return 'Type a valid Email';
                   }
                 },
                 keyboardType: TextInputType.emailAddress,
@@ -269,6 +274,9 @@ class SignUpScreen extends StatelessWidget {
                   if (value == null || value.isEmpty) {
                     return 'required field!';
                   }
+                  if (!isValidPhoneNumber(value)) {
+                    return 'Type a valid phone number';
+                  }
                 },
                 keyboardType: TextInputType.phone,
                 prefixIcon: Icons.phone,
@@ -410,4 +418,14 @@ class SignUpScreen extends StatelessWidget {
       },
     );
   }
+}
+
+bool isValidEmail(String email) {
+  return RegExp(
+          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+      .hasMatch(email);
+}
+
+bool isValidPhoneNumber(String phone) {
+  return RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(phone);
 }

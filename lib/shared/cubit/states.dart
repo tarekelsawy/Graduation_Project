@@ -73,3 +73,31 @@ class CoronaUploadImageToServerLoadingState extends CoronaStates {}
 class CoronaUploadImageToServerSuccessState extends CoronaStates {}
 
 class CoronaUploadImageToServerErrorState extends CoronaStates {}
+
+// upload question to firebase
+class CoronaUploadQuestionToFirebaseLoadingState extends CoronaStates {}
+
+class CoronaUploadQuestionToFirebaseSuccessState extends CoronaStates {}
+
+class CoronaUploadQuestionToFirebaseErrorState extends CoronaStates {}
+
+// upload test result to firebase
+class CoronaUploadTestResultToFirebaseLoadingState extends CoronaStates {}
+
+class CoronaUploadTestResultToFirebaseSuccessState extends CoronaStates {}
+
+class CoronaUploadTestResultToFirebaseErrorState extends CoronaStates {}
+
+// upload feedback to firebase
+class CoronaUploadFeedbackToFirebaseLoadingState extends CoronaStates {}
+
+class CoronaUploadFeedbackToFirebaseSuccessState extends CoronaStates {}
+
+class CoronaUploadFeedbackToFirebaseErrorState extends CoronaStates {}
+
+// upload question to firebase
+class CoronaUploadReviewToPythonLoadingState extends CoronaStates {}
+
+class CoronaUploadReviewToPythonSuccessState extends CoronaStates {}
+
+class CoronaUploadReviewToPythonErrorState extends CoronaStates {}

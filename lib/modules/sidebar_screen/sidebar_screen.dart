@@ -1,6 +1,10 @@
 import 'package:corona_test_project/generated/l10n.dart';
+import 'package:corona_test_project/layout/home/home_screen.dart';
 import 'package:corona_test_project/modules/corona_test_screens/questions_screen.dart';
+import 'package:corona_test_project/modules/done_folder/done_screen.dart';
 import 'package:corona_test_project/modules/edit_profile_screen/edit_profile_screen.dart';
+import 'package:corona_test_project/modules/get_image/get_image_screen.dart';
+import 'package:corona_test_project/modules/help_screen/help_screen.dart';
 import 'package:corona_test_project/modules/register_login/cubit/cubit.dart';
 import 'package:corona_test_project/modules/register_login/cubit/states.dart';
 import 'package:corona_test_project/modules/setting/setting_screen.dart';
@@ -72,7 +76,7 @@ class SideBarScreen extends StatelessWidget {
                   color: isDark ? colorWhite : colorBlack,
                 ),
                 onTap: () {
-                  navigateTo(context: context, widget: QuestionTestScreen());
+                  navigateTo(context: context, widget: HomeScreen());
                 },
                 title: Text(locale.homePage,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -100,7 +104,7 @@ class SideBarScreen extends StatelessWidget {
                   color: isDark ? colorWhite : colorBlack,
                 ),
                 onTap: () {
-                  navigateTo(context: context, widget: QuestionTestScreen());
+                  navigateTo(context: context, widget: GetImageScreen());
                 },
                 title: Text(
                   locale.imageProcessing,
@@ -115,7 +119,7 @@ class SideBarScreen extends StatelessWidget {
                   color: isDark ? colorWhite : colorBlack,
                 ),
                 onTap: () {
-                  navigateTo(context: context, widget: QuestionTestScreen());
+                  navigateTo(context: context, widget: DoneScreen());
                 },
                 title: Text(
                   locale.result,
@@ -148,7 +152,7 @@ class SideBarScreen extends StatelessWidget {
                   color: isDark ? colorWhite : colorBlack,
                 ),
                 onTap: () {
-                  navigateTo(context: context, widget: QuestionTestScreen());
+                  navigateTo(context: context, widget: HelpScreen());
                 },
                 title: Text(
                   locale.help,

@@ -2,6 +2,9 @@ import 'package:corona_test_project/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../modules/slide_animation/slide_animation.dart';
+import '../cubit/cubit.dart';
+
 Widget defaultTextFormField({
   required TextEditingController? controller,
   TextInputType? keyboardType,
@@ -122,6 +125,7 @@ void showToast({required String message, required ToastStatus toastStatus}) {
 }
 
 enum ToastStatus { SUCCESS, FAILD, WARNNING }
+
 Color chooseToastColor({required ToastStatus toastStatus}) {
   Color toastColor;
   switch (toastStatus) {
@@ -142,13 +146,8 @@ navigateTo({
   required BuildContext context,
   required widget,
 }) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) {
-        return widget;
-      },
-    ),
+  Navigator.of(context).push(
+    SlideAnimation(widget),
   );
 }
 
@@ -156,4 +155,217 @@ navigateAndFinish({required BuildContext context, required Widget widget}) {
   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
     return widget;
   }), (route) => false);
+}
+
+void pop(BuildContext context) {
+  Navigator.pop(context);
+}
+
+Widget buildProfileImage({String? image}) {
+  return Padding(
+    padding: const EdgeInsets.only(right: 12.0),
+    child: Center(
+      child: Stack(
+        alignment: AlignmentDirectional.bottomEnd,
+        children: [
+          CircleAvatar(
+            maxRadius: 25.0,
+            backgroundImage: NetworkImage(
+              image.toString(),
+            ),
+          ),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              CircleAvatar(
+                maxRadius: 7.5,
+                backgroundColor: isDark ? colorBlack : colorWhite,
+              ),
+              CircleAvatar(
+                maxRadius: 5.7,
+                backgroundColor: Color.fromARGB(255, 1, 254, 9),
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+Widget getProgressBar({
+  bool isDoneScreen = false,
+  bool isStartScreen = false,
+  bool isQuestionScreen = false,
+  bool isGetImageScreen = false,
+  bool isTestCompletedScreen = false,
+}) {
+  return Container(
+    height: 60.0,
+    padding: EdgeInsets.symmetric(
+      horizontal: 20.0,
+    ),
+    color: Colors.transparent,
+    child: Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20.0),
+            child: Container(
+              height: 40.0,
+              color: colorBlack,
+              child: Image.asset(
+                'assets/icons/start-button.png',
+                color: colorGreen,
+              ),
+            ),
+          ),
+          if (isStartScreen == true)
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: 1.3,
+                ),
+                height: 10.0,
+                color: colorBlack,
+                child: Container(
+                  color: colorYellow,
+                ),
+              ),
+            ),
+          if (isStartScreen == false)
+            Container(
+              padding: EdgeInsets.symmetric(
+                vertical: 1.3,
+              ),
+              height: 10.0,
+              width: 64.0,
+              color: colorBlack,
+              child: Row(
+                children: [
+                  if (CoronaCubit.questionPageIndex >= 0)
+                    Container(
+                      color: colorGreen,
+                      width: 8.0,
+                    ),
+                  if (CoronaCubit.questionPageIndex >= 1)
+                    Container(
+                      color: colorGreen,
+                      width: 8.0,
+                    ),
+                  if (CoronaCubit.questionPageIndex >= 2)
+                    Container(
+                      color: colorGreen,
+                      width: 8.0,
+                    ),
+                  if (CoronaCubit.questionPageIndex >= 3)
+                    Container(
+                      color: colorGreen,
+                      width: 8.0,
+                    ),
+                  if (CoronaCubit.questionPageIndex >= 4)
+                    Container(
+                      color: colorGreen,
+                      width: 8.0,
+                    ),
+                  if (CoronaCubit.questionPageIndex >= 5)
+                    Container(
+                      color: colorGreen,
+                      width: 8.0,
+                    ),
+                  if (CoronaCubit.questionPageIndex >= 6)
+                    Container(
+                      color: colorGreen,
+                      width: 8.0,
+                    ),
+                  if (CoronaCubit.questionPageIndex >= 7)
+                    Container(
+                      color: colorGreen,
+                      width: 8.0,
+                    ),
+                ],
+              ),
+            ),
+          CircleAvatar(
+            radius: isQuestionScreen ? 20.0 : 22.0,
+            backgroundColor:
+                isDoneScreen || isGetImageScreen ? colorGreen : colorYellow,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Container(
+                padding: const EdgeInsets.all(4.0),
+                height: 40.0,
+                color: colorBlack,
+                child: Image.asset(
+                  'assets/icons/test.png',
+                  color: isDoneScreen || isGetImageScreen
+                      ? colorGreen
+                      : colorYellow,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: 1.3,
+              ),
+              height: 10.0,
+              color: colorBlack,
+              child: Container(
+                color: isGetImageScreen ? colorGreen : colorYellow,
+              ),
+            ),
+          ),
+          CircleAvatar(
+            radius: isQuestionScreen ? 20.0 : 22.0,
+            backgroundColor: isTestCompletedScreen ? colorGreen : colorYellow,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Container(
+                // padding: const EdgeInsets.all(1.0),
+                height: 40.0,
+                color: colorBlack,
+                child: Image.asset(
+                  'assets/icons/xray@2x.png',
+                  color: isTestCompletedScreen ? colorGreen : colorYellow,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              height: 10.0,
+              padding: EdgeInsets.symmetric(
+                vertical: 1.3,
+              ),
+              color: colorBlack,
+              child: Container(
+                color: isTestCompletedScreen ? colorGreen : colorYellow,
+              ),
+            ),
+          ),
+          CircleAvatar(
+            radius: isQuestionScreen ? 20.0 : 22.0,
+            backgroundColor: isTestCompletedScreen ? colorGreen : colorYellow,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Container(
+                // padding: const EdgeInsets.all(1.0),
+                height: 40.0,
+                color: colorBlack,
+                child: Image.asset(
+                  'assets/icons/work-done.png',
+                  color: isTestCompletedScreen ? colorGreen : colorYellow,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+  ;
 }

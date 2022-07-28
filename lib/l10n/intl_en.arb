@@ -191,9 +191,61 @@
     "seeADoc":"You should see a doctor",
     "@seeADoc": {
         "description": "You should see a doctor"
+      },
+    "back":"Back",
+    "@back": {
+        "description": "Back Button"
+      },
+    "DWorry":"Don't worry, You are in a right hands",
+    "@DWorry": {
+        "description": "Don't worry"
       }
-
-     
+      ,
+    "test":"Test",
+    "@test": {
+        "description": "Test"
+      }
+      ,
+    "incCases":"Increasing of Cases",
+    "@incCases": {
+        "description": "incCases"
+      }
+      ,
+    "decCases":"decreasing of Cases",
+    "@decCases": {
+        "description": "incCases"
+      }
+      ,
+    "common":"  Common\nSymptoms",
+    "@common": {
+        "description": "common"
+      }
+      ,
+    "hardBreathe":"Hard Breathe",
+    "@hardBreathe": {
+        "description": "Hard Breathe"
+      }
+      ,
+    "Diarrhea":"Diarrhea",
+    "@Diarrhea": {
+        "description": "Diarrhea"
+      }
+      ,
+    "cough":"Coughing",
+    "@cough": {
+        "description": "cough"
+      }
+      ,
+    "headache":"Headache",
+    "@headache": {
+        "description": "headache"
+      }
+      ,
+    "mostAges":"Most Vulnerable Ages",
+    "@mostAges": {
+        "description": "mostAges"
+      }
+      
       
     
     

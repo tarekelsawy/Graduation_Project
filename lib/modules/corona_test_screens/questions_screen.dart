@@ -1,12 +1,11 @@
 import 'package:corona_test_project/generated/l10n.dart';
 import 'package:corona_test_project/modules/done_folder/done_screen.dart';
-import 'package:corona_test_project/modules/get_image/get_image_screen.dart';
 import 'package:corona_test_project/modules/sidebar_screen/sidebar_screen.dart';
 import 'package:corona_test_project/shared/components/components.dart';
 import 'package:corona_test_project/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:convert';
+
 import '../../shared/cubit/cubit.dart';
 import '../../shared/cubit/states.dart';
 import '../clip_path/clip_paths.dart';
@@ -25,14 +24,17 @@ class QuestionModel {
   double initValue;
   String prefixText;
   String postFixText;
-  QuestionModel(
-      {required this.question,
-      required this.divisions,
-      required this.max,
-      required this.min,
-      required this.initValue,
-      required this.postFixText,
-      required this.prefixText});
+  String image;
+  QuestionModel({
+    required this.question,
+    required this.divisions,
+    required this.max,
+    required this.min,
+    required this.initValue,
+    required this.postFixText,
+    required this.prefixText,
+    required this.image,
+  });
 }
 
 class QuestionTestScreen extends StatelessWidget {
@@ -45,13 +47,15 @@ class QuestionTestScreen extends StatelessWidget {
     bool isLastPage = false;
     List<QuestionModel> questionsList = [
       QuestionModel(
-          question: S.of(context).q1,
-          divisions: 100,
-          max: 42,
-          min: 37,
-          initValue: 37,
-          postFixText: S.of(context).high,
-          prefixText: S.of(context).normal),
+        question: S.of(context).q1,
+        divisions: 100,
+        max: 42,
+        min: 37,
+        initValue: 37,
+        postFixText: S.of(context).high,
+        prefixText: S.of(context).normal,
+        image: 'assets/icons/sick.png',
+      ),
       //prefix ->normal ---post high
       QuestionModel(
         question: S.of(context).q2,
@@ -61,6 +65,7 @@ class QuestionTestScreen extends StatelessWidget {
         initValue: 0,
         postFixText: S.of(context).yes,
         prefixText: S.of(context).no,
+        image: 'assets/icons/cough (2).png',
       ),
       //display the sumb in center
       QuestionModel(
@@ -71,6 +76,7 @@ class QuestionTestScreen extends StatelessWidget {
         initValue: 0,
         postFixText: S.of(context).wholeBody,
         prefixText: S.of(context).noneTired,
+        image: 'assets/icons/tiredness.png',
       ),
       QuestionModel(
         question: S.of(context).q4,
@@ -80,6 +86,7 @@ class QuestionTestScreen extends StatelessWidget {
         initValue: 0,
         postFixText: S.of(context).high,
         prefixText: S.of(context).low,
+        image: 'assets/icons/sick (2).png',
       ),
       QuestionModel(
         question: S.of(context).q5,
@@ -89,6 +96,7 @@ class QuestionTestScreen extends StatelessWidget {
         initValue: 0,
         postFixText: S.of(context).hard,
         prefixText: S.of(context).easy,
+        image: 'assets/icons/difficulty-breathing.png',
       ),
       QuestionModel(
         question: S.of(context).q6,
@@ -98,6 +106,7 @@ class QuestionTestScreen extends StatelessWidget {
         initValue: 0,
         postFixText: S.of(context).paintful,
         prefixText: S.of(context).nopain,
+        image: 'assets/icons/headache@2x.png',
       ),
       QuestionModel(
         question: S.of(context).q7,
@@ -107,6 +116,7 @@ class QuestionTestScreen extends StatelessWidget {
         initValue: 0,
         postFixText: S.of(context).runny,
         prefixText: S.of(context).no,
+        image: 'assets/icons/sick (2).png',
       ),
       QuestionModel(
         question: S.of(context).q8,
@@ -116,14 +126,28 @@ class QuestionTestScreen extends StatelessWidget {
         initValue: 0,
         postFixText: S.of(context).paintful,
         prefixText: S.of(context).nopain,
+        image: 'assets/icons/chest-pain-or-pressure.png',
       ),
     ];
     return BlocConsumer<CoronaCubit, CoronaStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is CoronaUploadQuestionToFirebaseSuccessState) {
+          showToast(
+              message: 'Your Anwers Uploaded Successfully',
+              toastStatus: ToastStatus.SUCCESS);
+          navigateTo(context: context, widget: DoneScreen());
+        }
+      },
       builder: (context, state) {
         S locale = S.of(context);
         CoronaCubit cubit = CoronaCubit.get(context);
         return Scaffold(
+          appBar: AppBar(
+            title: Title(
+              child: Text('Test'),
+              color: isDark ? colorWhite : colorPurple,
+            ),
+          ),
           drawer: SideBarScreen(),
           body: SafeArea(
             child: Stack(
@@ -135,6 +159,7 @@ class QuestionTestScreen extends StatelessWidget {
                 ),
                 Column(
                   children: [
+                    getProgressBar(isQuestionScreen: true),
                     Expanded(
                       child: PageView.builder(
                         physics: const BouncingScrollPhysics(),
@@ -210,26 +235,49 @@ class QuestionTestScreen extends StatelessWidget {
                                 SizedBox(
                                   width: 25,
                                 ),
-                                FloatingActionButton(
-                                  heroTag: "btn2",
-                                  onPressed: () {
-                                    if (isLastPage == true) {
-                                      navigateTo(
-                                          context: context,
-                                          widget: DoneScreen());
-                                    } else {
-                                      questionController.nextPage(
-                                          duration: Duration(milliseconds: 500),
-                                          curve: Curves.easeInToLinear);
-                                    }
-                                  },
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: isDark ? colorBlack : colorPurple,
-                                    ),
-                                  ),
-                                ),
+                                state !=
+                                        CoronaUploadQuestionToFirebaseLoadingState
+                                    ? FloatingActionButton(
+                                        heroTag: "btn2",
+                                        onPressed: () {
+                                          if (isLastPage == true) {
+                                            for (int i = 0; i < 8; ++i) {
+                                              CoronaCubit.qResult[i] =
+                                                  formatSliderDataForFirebase(
+                                                      cubit.qValues[i]);
+                                            }
+
+                                            CoronaCubit.qPresult = 0;
+                                            for (int i = 0; i < 8; ++i) {
+                                              CoronaCubit.qCounters[i] =
+                                                  getCounterData(
+                                                      i, cubit.qValues[i]);
+                                              CoronaCubit.qPresult +=
+                                                  CoronaCubit.qCounters[i];
+                                            }
+                                            print(
+                                                'qPreselt = ${CoronaCubit.qPresult}');
+                                            cubit
+                                                .uploadQuestionDataToFireStore();
+                                          } else {
+                                            questionController.nextPage(
+                                                duration:
+                                                    Duration(milliseconds: 500),
+                                                curve: Curves.easeInToLinear);
+                                          }
+                                        },
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.arrow_forward_ios,
+                                            color: isDark
+                                                ? colorBlack
+                                                : colorPurple,
+                                          ),
+                                        ),
+                                      )
+                                    : Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
                               ],
                             ),
                             SizedBox(
@@ -251,11 +299,12 @@ class QuestionTestScreen extends StatelessWidget {
   }
 }
 
-Widget pageItem(
-    {required QuestionModel model,
-    required BuildContext context,
-    required CoronaCubit cubit,
-    required int index}) {
+Widget pageItem({
+  required QuestionModel model,
+  required BuildContext context,
+  required CoronaCubit cubit,
+  required int index,
+}) {
   return Container(
     color: isDark ? colorYellow : colorWhite,
     width: double.infinity,
@@ -263,18 +312,14 @@ Widget pageItem(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-          flex: 4,
-          child: SizedBox(),
-        ),
-        Expanded(
-          flex: 4,
+          flex: 8,
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 40,
+              horizontal: 30,
+              vertical: 10.0,
             ),
             child: Container(
               width: double.infinity,
-              height: 120,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(
                   Radius.circular(30.0),
@@ -289,31 +334,47 @@ Widget pageItem(
                 ],
                 color: isDark ? colorBlack : colorPurple,
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 8.0,
-                ),
-                child: Center(
-                  child: Text(
-                    model.question,
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 15,
-                          color: isDark ? colorYellow : colorWhite,
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 5.0,
+                      ),
+                      child: Container(
+                        child: Image.asset(
+                          '${model.image}',
+                          color: colorYellow,
                         ),
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                    overflow: TextOverflow.fade,
+                      ),
+                    ),
                   ),
-                ),
+                  Expanded(
+                    flex: 3,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 8.0,
+                      ),
+                      child: Center(
+                        child: Text(
+                          model.question,
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 15,
+                                    color: isDark ? colorYellow : colorWhite,
+                                  ),
+                          textAlign: TextAlign.center,
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: SizedBox(
-            height: 15,
           ),
         ),
         Expanded(
@@ -489,53 +550,140 @@ String selectLabel({
   required double value,
 }) {
   String result = '';
+  print('$index ->$value');
   switch (index) {
     case 0:
       result = '${value.toStringAsFixed(2)}';
       break;
     case 1:
-      if (value == 0.0) result = 'no-tired';
+      if (valueBetween(value, -0.1, 0.29)) result = 'no-tired';
       if (valueBetween(value, 0.3, 0.35)) result = 'semi-tired';
       if (valueBetween(value, 0.6, 0.69)) result = 'tired';
       if (valueBetween(value, 0.9, 1.0)) result = 'very-tired';
       break;
     case 2:
-      if (value == 0.0) result = 'no-tired';
-      if (valueBetween(value, 0.3, 0.35)) result = 'semi-tired';
-      if (valueBetween(value, 0.6, 0.69)) result = 'tired';
-      if (valueBetween(value, 0.9, 1.0)) result = 'very-tired';
-      break;
-    case 3:
-      if (value == 0.0) result = 'no-tired';
+      if (valueBetween(value, -0.1, 0.29)) result = 'no-tired';
       if (valueBetween(value, 0.3, 0.35)) result = 'semi-tired';
       if (valueBetween(value, 0.6, 0.69)) result = 'tired';
       if (valueBetween(value, 0.9, 1.0)) result = 'very-tired';
       break;
     case 4:
-      if (value == 0.0) result = 'no-tired';
+      if (valueBetween(value, -0.1, 0.29)) result = 'no-tired';
+      if (valueBetween(value, 0.3, 0.35)) result = 'semi-tired';
+      if (valueBetween(value, 0.6, 0.69)) result = 'tired';
+      if (valueBetween(value, 0.9, 1.0)) result = 'very-tired';
+      break;
+    case 3:
+      if (valueBetween(value, -0.1, 0.29)) result = 'no-tired';
       if (valueBetween(value, 0.3, 0.35)) result = 'no-smell';
       if (valueBetween(value, 0.6, 0.69)) result = 'no-taste';
-      if (valueBetween(value, 0.9, 1.0)) result = 'no-no';
+      if (valueBetween(value, 0.9, 1.0)) result = 'no-both';
       break;
     case 5:
-      if (value == 0.0) result = 'no-tired';
+      if (valueBetween(value, -0.1, 0.29)) result = 'no-tired';
       if (valueBetween(value, 0.3, 0.35)) result = 'semi-tired';
       if (valueBetween(value, 0.6, 0.69)) result = 'tired';
       if (valueBetween(value, 0.9, 1.0)) result = 'very-tired';
       break;
     case 6:
-      if (value == 0.0) result = 'no-tired';
+      if (valueBetween(value, -0.1, 0.29)) result = 'no-tired';
       if (valueBetween(value, 0.3, 0.35)) result = 'semi-tired';
       if (valueBetween(value, 0.6, 0.69)) result = 'tired';
       if (valueBetween(value, 0.9, 1.0)) result = 'very-tired';
       break;
     case 7:
-      if (value == 0.0) result = 'no-tired';
+      if (valueBetween(value, -0.1, 0.29)) result = 'no-tired';
       if (valueBetween(value, 0.3, 0.35)) result = 'semi-tired';
       if (valueBetween(value, 0.6, 0.69)) result = 'tired';
       if (valueBetween(value, 0.9, 1.0)) result = 'very-tired';
       break;
   }
-  CoronaCubit.qResult[index] = result;
+  return result;
+}
+
+String formatSliderDataForFirebase(double vr) {
+  late String tmp;
+  if (vr <= 1.0) {
+    if (vr >= 0.0 && vr <= 0.6) tmp = 'no';
+    if (vr > 0.6 && vr <= 0.85) tmp = 'some';
+    if (vr > 0.85 && vr <= 1.0) tmp = 'dying';
+  } else {
+    if (vr >= 37.0 && vr <= 38.3) tmp = 'no';
+    if (vr > 38.3 && vr <= 39.85) tmp = 'some';
+    if (vr > 39.85 && vr <= 42.0) tmp = 'dying';
+  }
+
+  return tmp;
+}
+
+double getCounterData(int index, double value) {
+  late double result;
+  switch (index) {
+    case 0:
+      result = isTemp(value);
+      break;
+    case 1:
+      if (valueBetween(value, -0.1, 0.29)) result = 1.75;
+      if (valueBetween(value, 0.3, 0.35)) result = 3.5;
+      if (valueBetween(value, 0.6, 0.69)) result = 5.25;
+      if (valueBetween(value, 0.9, 1.0)) result = 7.0;
+      break;
+    case 2:
+      if (valueBetween(value, -0.1, 0.29)) result = 1.75;
+      if (valueBetween(value, 0.3, 0.35)) result = 3.5;
+      if (valueBetween(value, 0.6, 0.69)) result = 5.25;
+      if (valueBetween(value, 0.9, 1.0)) result = 7.0;
+      break;
+    case 4:
+      if (valueBetween(value, -0.1, 0.29)) result = 3;
+      if (valueBetween(value, 0.3, 0.35)) result = 6;
+      if (valueBetween(value, 0.6, 0.69)) result = 9;
+      if (valueBetween(value, 0.9, 1.0)) result = 12;
+      break;
+    case 3:
+      if (valueBetween(value, -0.1, 0.29)) result = 1.75;
+      if (valueBetween(value, 0.3, 0.35)) result = 3.5;
+      if (valueBetween(value, 0.6, 0.69)) result = 5.25;
+      if (valueBetween(value, 0.9, 1.0)) result = 7.0;
+      break;
+    case 5:
+      if (valueBetween(value, -0.1, 0.29)) result = 1;
+      if (valueBetween(value, 0.3, 0.35)) result = 2;
+      if (valueBetween(value, 0.6, 0.69)) result = 3;
+      if (valueBetween(value, 0.9, 1.0)) result = 4;
+      break;
+    case 6:
+      if (valueBetween(value, -0.1, 0.29)) result = 1;
+      if (valueBetween(value, 0.3, 0.35)) result = 2;
+      if (valueBetween(value, 0.6, 0.69)) result = 3;
+      if (valueBetween(value, 0.9, 1.0)) result = 4;
+      break;
+    case 7:
+      if (valueBetween(value, -0.1, 0.29)) result = 3;
+      if (valueBetween(value, 0.3, 0.35)) result = 6;
+      if (valueBetween(value, 0.6, 0.69)) result = 9;
+      if (valueBetween(value, 0.9, 1.0)) result = 12;
+      break;
+  }
+  return result;
+}
+
+double isTemp(double value) {
+  late double result;
+  if (value >= 37 && value <= 38) {
+    result = 1.4;
+  }
+  if (value > 38 && value <= 39) {
+    result = 2.8;
+  }
+  if (value > 39 && value <= 40) {
+    result = 4.2;
+  }
+  if (value > 40 && value <= 41) {
+    result = 5.6;
+  }
+  if (value > 41 && value <= 42) {
+    result = 7.0;
+  }
   return result;
 }

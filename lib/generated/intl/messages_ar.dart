@@ -22,10 +22,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "DWorry":
+            MessageLookupByLibrary.simpleMessage("لا تقلق,أنت في أيدي آمنه"),
+        "Diarrhea": MessageLookupByLibrary.simpleMessage("إسهال"),
         "ar": MessageLookupByLibrary.simpleMessage("عربي"),
+        "back": MessageLookupByLibrary.simpleMessage("عودة"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
+        "common": MessageLookupByLibrary.simpleMessage("  الحالات\nالشائعة"),
+        "cough": MessageLookupByLibrary.simpleMessage("كحة"),
         "countrySearch": MessageLookupByLibrary.simpleMessage("بحث عن دولة"),
         "dark": MessageLookupByLibrary.simpleMessage("داكن"),
+        "decCases": MessageLookupByLibrary.simpleMessage("نقص في الحالات"),
         "details": MessageLookupByLibrary.simpleMessage("التفاصيل"),
         "easy": MessageLookupByLibrary.simpleMessage("سهل"),
         "editProfile":
@@ -40,6 +47,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterYourState": MessageLookupByLibrary.simpleMessage("اسم الدوله"),
         "gallary": MessageLookupByLibrary.simpleMessage("المعرض"),
         "hard": MessageLookupByLibrary.simpleMessage("صعب"),
+        "hardBreathe": MessageLookupByLibrary.simpleMessage("تنفس صعب"),
+        "headache": MessageLookupByLibrary.simpleMessage("صداع"),
         "help": MessageLookupByLibrary.simpleMessage("المساعدة"),
         "high": MessageLookupByLibrary.simpleMessage("عالي"),
         "homePage": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
@@ -47,9 +56,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "اختر صورة التصوير بالرنين المغناطيسي"),
         "imagePreview": MessageLookupByLibrary.simpleMessage("عرض الصورة"),
         "imageProcessing": MessageLookupByLibrary.simpleMessage("تحليل الصورة"),
+        "incCases": MessageLookupByLibrary.simpleMessage("زيادة في الحالات"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "low": MessageLookupByLibrary.simpleMessage("منخفض"),
+        "mostAges": MessageLookupByLibrary.simpleMessage("أكثر الأعمار ضعفاً"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
         "noneTired": MessageLookupByLibrary.simpleMessage("لا ألم"),
         "nopain": MessageLookupByLibrary.simpleMessage("لا ألم"),
@@ -72,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("يجب عليك الذهاب الي الطبيب"),
         "setting": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
+        "test": MessageLookupByLibrary.simpleMessage("فحص"),
         "typeCountrySearch":
             MessageLookupByLibrary.simpleMessage("ابدأ في الكتابة للبحث"),
         "updateProfile": MessageLookupByLibrary.simpleMessage("تعديل"),

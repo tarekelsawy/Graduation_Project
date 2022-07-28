@@ -3,6 +3,7 @@ import 'package:corona_test_project/modules/corona_test_screens/questions_screen
 import 'package:corona_test_project/modules/done_folder/done_screen.dart';
 import 'package:corona_test_project/modules/done_folder/final_done_Screen.dart';
 import 'package:corona_test_project/modules/sidebar_screen/sidebar_screen.dart';
+import 'package:corona_test_project/modules/test_completed/test_completed.dart';
 import 'package:corona_test_project/shared/components/components.dart';
 import 'package:corona_test_project/shared/components/constants.dart';
 import 'package:corona_test_project/shared/cubit/cubit.dart';
@@ -20,7 +21,14 @@ class GetImageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CoronaCubit, CoronaStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is CoronaUploadImageToServerSuccessState) {
+          showToast(
+              message: 'Image Processed Successfully',
+              toastStatus: ToastStatus.SUCCESS);
+          navigateTo(context: context, widget: TestCompletedScreen());
+        }
+      },
       builder: (context, state) {
         CoronaCubit cubit = CoronaCubit.get(context);
         return Scaffold(
@@ -35,8 +43,10 @@ class GetImageScreen extends StatelessWidget {
                 ),
                 Column(
                   children: [
+                    getProgressBar(
+                      isGetImageScreen: true,
+                    ),
                     Expanded(
-                      flex: 6,
                       child: Container(
                         color: isDark ? colorYellow : colorWhite,
                         child: Column(
@@ -46,7 +56,9 @@ class GetImageScreen extends StatelessWidget {
                               child: Container(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 20),
+                                    horizontal: 20,
+                                    vertical: 5.0,
+                                  ),
                                   child: Container(
                                     child: Center(
                                       child: CoronaCubit.imageFile != null
@@ -107,7 +119,7 @@ class GetImageScreen extends StatelessWidget {
                             Expanded(
                               flex: 2,
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   buttonInImageScreen(
                                     context: context,
@@ -118,7 +130,7 @@ class GetImageScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 20,
+                                    height: 10.0,
                                   ),
                                   buttonInImageScreen(
                                     context: context,
@@ -165,33 +177,36 @@ class GetImageScreen extends StatelessWidget {
                                 const SizedBox(
                                   width: 60,
                                 ),
-                                FloatingActionButton(
-                                  heroTag: 'hero2',
-                                  onPressed: CoronaCubit.imageFile != null
-                                      ? () {
-                                          cubit.uploadImage(
-                                              imageFile: CoronaCubit.imageFile);
-
-                                          // navigateTo(
-                                          //     context: context,
-                                          //     widget: FinalDoneScreen());
-                                        }
-                                      : null,
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.done,
-                                      color: isDark ? colorBlack : colorPurple,
-                                      size: 35.0,
-                                    ),
-                                  ),
-                                  backgroundColor: isDark
-                                      ? CoronaCubit.imageFile != null
-                                          ? colorYellow
-                                          : Color.fromARGB(255, 100, 93, 61)
-                                      : CoronaCubit.imageFile != null
-                                          ? colorWhite
-                                          : colorWhite.withOpacity(0.5),
-                                ),
+                                state is! CoronaUploadImageToServerLoadingState
+                                    ? FloatingActionButton(
+                                        heroTag: 'hero2',
+                                        onPressed: CoronaCubit.imageFile != null
+                                            ? () {
+                                                cubit.uploadImage(
+                                                    imageFile:
+                                                        CoronaCubit.imageFile);
+                                              }
+                                            : null,
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.done,
+                                            color: isDark
+                                                ? colorBlack
+                                                : colorPurple,
+                                            size: 35.0,
+                                          ),
+                                        ),
+                                        backgroundColor: isDark
+                                            ? CoronaCubit.imageFile != null
+                                                ? colorYellow
+                                                : Color.fromARGB(
+                                                    255, 100, 93, 61)
+                                            : CoronaCubit.imageFile != null
+                                                ? colorWhite
+                                                : colorWhite.withOpacity(0.5),
+                                      )
+                                    : Center(
+                                        child: CircularProgressIndicator()),
                               ],
                             ),
                             SizedBox(

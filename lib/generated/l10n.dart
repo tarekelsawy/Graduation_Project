@@ -519,6 +519,116 @@ class S {
       args: [],
     );
   }
+
+  /// `Back`
+  String get back {
+    return Intl.message(
+      'Back',
+      name: 'back',
+      desc: 'Back Button',
+      args: [],
+    );
+  }
+
+  /// `Don't worry, You are in a right hands`
+  String get DWorry {
+    return Intl.message(
+      'Don\'t worry, You are in a right hands',
+      name: 'DWorry',
+      desc: 'Don\'t worry',
+      args: [],
+    );
+  }
+
+  /// `Test`
+  String get test {
+    return Intl.message(
+      'Test',
+      name: 'test',
+      desc: 'Test',
+      args: [],
+    );
+  }
+
+  /// `Increasing of Cases`
+  String get incCases {
+    return Intl.message(
+      'Increasing of Cases',
+      name: 'incCases',
+      desc: 'incCases',
+      args: [],
+    );
+  }
+
+  /// `decreasing of Cases`
+  String get decCases {
+    return Intl.message(
+      'decreasing of Cases',
+      name: 'decCases',
+      desc: 'incCases',
+      args: [],
+    );
+  }
+
+  /// `  Common\nSymptoms`
+  String get common {
+    return Intl.message(
+      '  Common\nSymptoms',
+      name: 'common',
+      desc: 'common',
+      args: [],
+    );
+  }
+
+  /// `Hard Breathe`
+  String get hardBreathe {
+    return Intl.message(
+      'Hard Breathe',
+      name: 'hardBreathe',
+      desc: 'Hard Breathe',
+      args: [],
+    );
+  }
+
+  /// `Diarrhea`
+  String get Diarrhea {
+    return Intl.message(
+      'Diarrhea',
+      name: 'Diarrhea',
+      desc: 'Diarrhea',
+      args: [],
+    );
+  }
+
+  /// `Coughing`
+  String get cough {
+    return Intl.message(
+      'Coughing',
+      name: 'cough',
+      desc: 'cough',
+      args: [],
+    );
+  }
+
+  /// `Headache`
+  String get headache {
+    return Intl.message(
+      'Headache',
+      name: 'headache',
+      desc: 'headache',
+      args: [],
+    );
+  }
+
+  /// `Most Vulnerable Ages`
+  String get mostAges {
+    return Intl.message(
+      'Most Vulnerable Ages',
+      name: 'mostAges',
+      desc: 'mostAges',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

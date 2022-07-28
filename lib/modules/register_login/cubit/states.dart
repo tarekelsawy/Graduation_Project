@@ -48,3 +48,11 @@ class RegisterErrorCreateUserState extends LoginAndRegisterStates {
 class RegisterCalcPasswordStrength extends LoginAndRegisterStates {}
 
 class GetUserErrorState extends LoginAndRegisterStates {}
+
+class LoginIsResetChangeState extends LoginAndRegisterStates {}
+
+class LoginResetPasswordLoadingState extends LoginAndRegisterStates {}
+
+class LoginResetPasswordSuccessState extends LoginAndRegisterStates {}
+
+class LoginResetPasswordErrorState extends LoginAndRegisterStates {}
